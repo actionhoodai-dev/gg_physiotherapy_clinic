@@ -63,10 +63,10 @@ export default function TermsPage() {
 
             <section className="space-y-3">
               <h2 className="text-xl font-bold text-[#0A363D]">
-                3. Home Visit Physical Therapy
+                3. In-Clinic Consultations &amp; Appointments
               </h2>
               <p className="text-sm sm:text-base">
-                Home visit physical therapy is offered within specific geographic boundaries in South Chennai (including Perungudi, Velachery, Thoraipakkam, Madipakkam, and surrounding areas) subject to therapist availability and clinical suitability.
+                All consultations and physical therapy treatments are conducted in-clinic at our Perungudi facility. Scheduled 1-hour appointment slots should be honored promptly to ensure seamless clinical care and zero waiting times for all patients.
               </p>
             </section>
 

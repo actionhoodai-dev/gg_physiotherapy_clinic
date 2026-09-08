@@ -49,28 +49,49 @@ export async function POST(request: Request) {
       message: message ? message.trim() : "",
     });
 
-    // Send Resend email notification to admin asynchronously
+    // Send Resend email notifications asynchronously
     const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "contact@ggphysiotherapy.com";
     try {
-      const { sendResendEmail, buildAppointmentEmailTemplate } = await import("@/lib/email");
+      const {
+        sendResendEmail,
+        buildAppointmentEmailTemplate,
+        buildPatientAppointmentConfirmationTemplate,
+      } = await import("@/lib/email");
+
+      // 1. Notify clinic admin
       await sendResendEmail({
         to: adminEmail,
-        subject: `[New Appointment Request] ${fullName.trim()} (${consultationMode.toUpperCase()}) - ${preferredDate}`,
+        subject: `[New In-Clinic Booking] ${fullName.trim()} - ${preferredDate} (${preferredTime})`,
         html: buildAppointmentEmailTemplate({
           fullName: fullName.trim(),
           phone: phone.trim(),
           email: email ? email.trim() : "",
           preferredService: preferredService || "General Physiotherapy Consultation",
           preferredDate,
-          preferredTime: preferredTime || "Morning (10:00 AM - 1:00 PM)",
-          consultationMode: consultationMode || "clinic",
+          preferredTime: preferredTime || "10:00 AM – 11:00 AM",
+          consultationMode: "clinic",
           message: message ? message.trim() : "",
         }),
         replyTo: email ? email.trim() : undefined,
       });
+
+      // 2. Send confirmation to patient if email was provided
+      if (email && email.trim()) {
+        await sendResendEmail({
+          to: email.trim(),
+          subject: `Appointment Request Received - GG Physiotherapy Clinic (${preferredDate})`,
+          html: buildPatientAppointmentConfirmationTemplate({
+            fullName: fullName.trim(),
+            preferredService: preferredService || "General Physiotherapy Consultation",
+            preferredDate,
+            preferredTime: preferredTime || "10:00 AM – 11:00 AM",
+            appointmentId,
+          }),
+        });
+      }
     } catch (emailErr) {
       console.error("Resend appointment email notification failed:", emailErr);
-      // Non-blocking
+      // Non-blocking: booking is already saved in Firestore
     }
 
     return NextResponse.json({

@@ -34,7 +34,7 @@ export function FAQSection({ faqs = defaultFAQs }: { faqs?: FAQItem[] }) {
           </Reveal>
           <Reveal direction="up" delay={150}>
             <p className="text-sm sm:text-base text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed">
-              Transparent guidance on clinic timings, consultation formats, insurance, home visits, and treatment expectations.
+              Transparent guidance on clinic timings, 1-hour appointment slots, treatment modalities, and recovery expectations.
             </p>
           </Reveal>
         </div>

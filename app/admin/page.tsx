@@ -268,8 +268,8 @@ export default function AdminOverviewPage() {
                   <th className="py-3.5 px-6">Patient</th>
                   <th className="py-3.5 px-4">Contact</th>
                   <th className="py-3.5 px-4">Treatment</th>
+                  <th className="py-3.5 px-4">Date &amp; 1-Hr Slot</th>
                   <th className="py-3.5 px-4">Mode</th>
-                  <th className="py-3.5 px-4">Date & Slot</th>
                   <th className="py-3.5 px-4">Status</th>
                   <th className="py-3.5 px-6 text-right">Actions</th>
                 </tr>
@@ -290,17 +290,17 @@ export default function AdminOverviewPage() {
                         {apt.phone}
                       </a>
                     </td>
-                    <td className="py-4 px-4 text-slate-800">
+                    <td className="py-4 px-4 text-slate-800 font-medium">
                       {apt.preferredService}
                     </td>
-                    <td className="py-4 px-4">
-                      <span className="capitalize px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700">
-                        {apt.consultationMode}
-                      </span>
-                    </td>
                     <td className="py-4 px-4 text-slate-700">
-                      <span className="font-semibold block">{formatDate(apt.preferredDate)}</span>
-                      <span className="text-[11px] text-slate-500">{apt.preferredTime}</span>
+                      <span className="font-semibold block text-slate-900">{formatDate(apt.preferredDate)}</span>
+                      <span className="text-[11px] text-teal-700 font-medium">{apt.preferredTime}</span>
+                    </td>
+                    <td className="py-4 px-4">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        In-Clinic
+                      </span>
                     </td>
                     <td className="py-4 px-4">
                       <span
@@ -359,28 +359,28 @@ export default function AdminOverviewPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             {
-              title: "Business Settings",
-              desc: "Edit address, hours, WhatsApp number & clinic metadata",
-              href: "/admin/settings",
-              icon: Briefcase,
+              title: "Appointments Desk",
+              desc: "Manage patient consultation bookings, dates and status",
+              href: "/admin/appointments",
+              icon: CalendarCheck,
             },
             {
-              title: "Homepage CMS",
-              desc: "Customize hero headlines, stats, why-us and CTAs",
-              href: "/admin/homepage",
-              icon: Star,
+              title: "Patient Enquiries",
+              desc: "View messages received from website contact form",
+              href: "/admin/enquiries",
+              icon: Inbox,
             },
             {
               title: "Services Catalog",
-              desc: "Add, edit or reorder clinical treatments",
+              desc: "Add, edit, or update clinical treatments and images",
               href: "/admin/services",
               icon: Briefcase,
             },
             {
-              title: "Media Library",
-              desc: "Upload and manage clinic photos on Cloudinary",
-              href: "/admin/media",
-              icon: HardDrive,
+              title: "Google Reviews",
+              desc: "Manage patient testimonials and Google review highlights",
+              href: "/admin/testimonials",
+              icon: Star,
             },
           ].map((card) => {
             const Icon = card.icon;

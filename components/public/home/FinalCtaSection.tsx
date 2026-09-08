@@ -41,7 +41,7 @@ export function FinalCtaSection({
 
         <Reveal direction="up" delay={150}>
           <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-            {cta.subtitle || "Experience personalized 1-on-1 care with Dr. Sundaravalli Jayakumar. In-clinic assessments in Perungudi and doorstep home visits across OMR Chennai."}
+            {cta.subtitle || "Experience personalized 1-on-1 clinical care with Dr. Sundaravalli Jayakumar. Dedicated in-clinic assessments and advanced physical rehabilitation in Perungudi, Chennai."}
           </p>
         </Reveal>
 

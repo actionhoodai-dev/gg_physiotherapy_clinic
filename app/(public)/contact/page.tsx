@@ -167,7 +167,7 @@ export default function ContactPage() {
                   Send a Direct Message to Clinic
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
-                  Have questions about our rehabilitation protocols, home visit availability, or pricing? Submit your details below and our team will get back to you promptly.
+                  Have questions about our rehabilitation protocols, clinic consultation timings, or treatment pricing? Submit your details below and our team will get back to you promptly.
                 </p>
               </div>
 

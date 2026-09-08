@@ -94,7 +94,7 @@ export function LocationSection({
                     </div>
                     <div>
                       <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-                        Direct Desk &amp; Home Visit Enquiry
+                        Direct Clinic Desk &amp; Consultation Booking
                       </h3>
                       <div className="flex items-center gap-3 mt-1">
                         <a

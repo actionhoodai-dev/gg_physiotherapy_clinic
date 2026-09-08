@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { Upload, X, AlertCircle, Loader2, Image as ImageIcon } from "lucide-react";
+import { Upload, X, AlertCircle, Loader2, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 
 interface UploadedMedia {
   secureUrl: string;
@@ -31,48 +31,31 @@ export function CloudinaryUploader({
   label = "Upload Image",
 }: CloudinaryUploaderProps) {
   const initialUrl = value || currentImageUrl || "";
-  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>(initialUrl);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [uploaded, setUploaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const prevUrlRef = React.useRef(initialUrl);
   React.useEffect(() => {
     const url = value || currentImageUrl || "";
-    if (url && !file && url !== prevUrlRef.current) {
+    if (url && url !== prevUrlRef.current) {
       prevUrlRef.current = url;
       requestAnimationFrame(() => setPreview(url));
     }
-  }, [value, currentImageUrl, file]);
+  }, [value, currentImageUrl]);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError("");
-    const selected = e.target.files?.[0];
-    if (!selected) return;
-
-    if (!selected.type.startsWith("image/")) {
-      setError("Please select a valid image file (JPG, PNG, WebP).");
-      return;
-    }
-
-    if (selected.size > 10 * 1024 * 1024) {
-      setError("Image size must be less than 10MB.");
-      return;
-    }
-
-    setFile(selected);
-    const objectUrl = URL.createObjectURL(selected);
-    setPreview(objectUrl);
-  };
-
-  const handleUpload = async () => {
-    if (!file) return;
-
+  const uploadFile = async (file: File) => {
     setUploading(true);
     setError("");
+    setUploaded(false);
     setProgress(15);
+
+    // Show local preview immediately
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
 
     try {
       // 1. Get secure upload signature from our backend
@@ -86,20 +69,16 @@ export function CloudinaryUploader({
       setProgress(40);
 
       if (!signData.configured) {
-        // Mock fallback if keys not configured
-        setTimeout(() => {
-          setUploading(false);
-          setProgress(100);
-          if (onSuccess) {
-            onSuccess({
-              secureUrl: preview,
-              publicId: `mock_${Date.now()}`,
-            });
-          }
-          if (onChange) {
-            onChange(preview);
-          }
-        }, 1000);
+        // Mock fallback if Cloudinary keys not configured — use local preview
+        setUploading(false);
+        setProgress(100);
+        setUploaded(true);
+        if (onSuccess) {
+          onSuccess({ secureUrl: objectUrl, publicId: `mock_${Date.now()}` });
+        }
+        if (onChange) {
+          onChange(objectUrl);
+        }
         return;
       }
 
@@ -126,6 +105,9 @@ export function CloudinaryUploader({
 
       setProgress(100);
       setUploading(false);
+      setUploaded(true);
+      setPreview(uploadData.secure_url);
+
       if (onSuccess) {
         onSuccess({
           secureUrl: uploadData.secure_url,
@@ -144,6 +126,26 @@ export function CloudinaryUploader({
       const message = err instanceof Error ? err.message : "Failed to upload image. Please try again.";
       setError(message);
     }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError("");
+    setUploaded(false);
+    const selected = e.target.files?.[0];
+    if (!selected) return;
+
+    if (!selected.type.startsWith("image/")) {
+      setError("Please select a valid image file (JPG, PNG, WebP).");
+      return;
+    }
+
+    if (selected.size > 10 * 1024 * 1024) {
+      setError("Image size must be less than 10MB.");
+      return;
+    }
+
+    // Auto-upload immediately after file selection
+    uploadFile(selected);
   };
 
   return (
@@ -169,6 +171,17 @@ export function CloudinaryUploader({
               fill
               className="object-cover"
             />
+            {uploading && (
+              <div className="absolute inset-0 bg-slate-900/60 flex flex-col items-center justify-center">
+                <Loader2 className="w-6 h-6 text-white animate-spin" />
+                <span className="text-[10px] text-white mt-1 font-bold">{progress}%</span>
+              </div>
+            )}
+            {uploaded && !uploading && (
+              <div className="absolute top-1 right-1">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 drop-shadow-md" />
+              </div>
+            )}
           </div>
         ) : (
           <div className="w-28 h-28 rounded-lg border border-slate-200 bg-white flex flex-col items-center justify-center text-slate-400 flex-shrink-0">
@@ -190,38 +203,31 @@ export function CloudinaryUploader({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="px-3.5 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold shadow-2xs transition-colors"
+              disabled={uploading}
+              className="px-3.5 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold shadow-2xs transition-colors disabled:opacity-50 flex items-center gap-1.5"
             >
-              Choose File
+              {uploading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Uploading ({progress}%)...</span>
+                </>
+              ) : (
+                <>
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>{preview ? "Change Image" : "Choose & Upload"}</span>
+                </>
+              )}
             </button>
-
-            {file && (
-              <button
-                type="button"
-                onClick={handleUpload}
-                disabled={uploading}
-                className="px-4 py-1.5 rounded-lg bg-[#0e3b43] hover:bg-[#092b31] text-white text-xs font-bold transition-colors flex items-center gap-1.5 disabled:opacity-50"
-              >
-                {uploading ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Uploading ({progress}%)...</span>
-                  </>
-                ) : (
-                  <>
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>Upload to Cloudinary</span>
-                  </>
-                )}
-              </button>
-            )}
           </div>
 
           <p className="text-[11px] text-slate-500">
-            Supports WebP, PNG, JPG up to 10MB. Stored securely on Cloudinary CDN.
+            {uploading
+              ? "Uploading to Cloudinary CDN — please wait..."
+              : "Supports WebP, PNG, JPG up to 10MB. Auto-uploads on selection."}
           </p>
         </div>
       </div>
     </div>
   );
 }
+

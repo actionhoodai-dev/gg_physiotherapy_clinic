@@ -197,7 +197,7 @@ export function Footer() {
                 className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#E85D45] text-white font-bold text-xs hover:bg-[#D44E36] shadow-sm transition-all"
               >
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Book In-Clinic / Home Visit</span>
+                <span>Book In-Clinic Appointment</span>
               </Link>
             </div>
           </div>

@@ -81,8 +81,8 @@ const SERVICE_FAQS = [
     a: "In many cases of lumbar disc bulge, sciatica, mild-to-moderate knee osteoarthritis, and cervical spondylosis, structured physical therapy and mechanical decompression resolve pain and restore functional movement, making invasive surgery unnecessary.",
   },
   {
-    q: "Are home visit physiotherapy sessions available near Perungudi?",
-    a: "Yes. We offer dedicated home visit physical therapy across Perungudi, Velachery, Thoraipakkam, Kandanchavadi, and the OMR IT corridor for post-surgical patients, elderly seniors, and patients unable to travel.",
+    q: "How are consultation slots scheduled at the clinic?",
+    a: "We provide dedicated 1-hour in-clinic appointment slots from Monday to Saturday (10:00 AM – 1:00 PM & 5:00 PM – 9:00 PM) and Sunday (11:00 AM – 1:00 PM). Booking in advance ensures zero waiting times and dedicated one-on-one clinical attention.",
   },
 ];
 

@@ -15,6 +15,7 @@ import { getConditions, saveCondition, deleteCondition } from "@/lib/firestore";
 import { ConditionItem } from "@/types";
 import { useToast } from "@/components/ui/Toast";
 import { Modal } from "@/components/ui/Modal";
+import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
 import { slugify } from "@/lib/utils";
 
 const EMPTY_FORM: Partial<ConditionItem> = {
@@ -296,15 +297,12 @@ export default function AdminConditionsPage() {
               className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-teal-500 outline-none"
             />
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Image URL</label>
-            <input
-              type="text"
-              value={form.image || ""}
-              onChange={(e) => setForm({ ...form, image: e.target.value })}
-              className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-teal-500 outline-none"
-            />
-          </div>
+          <CloudinaryUploader
+            value={form.image || ""}
+            onChange={(url: string) => setForm({ ...form, image: url })}
+            folder="gg_physio/conditions"
+            label="Condition Image"
+          />
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">Display Order</label>

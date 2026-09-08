@@ -13,7 +13,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | GG Physiotherapy Clinic Chennai",
   description:
-    "Common questions answered about physiotherapy consultations, treatment costs, timings, home visits, and appointments in Perungudi, Chennai.",
+    "Common questions answered about in-clinic physiotherapy consultations, treatment costs, timings, 1-hour slots, and appointments in Perungudi, Chennai.",
 };
 
 export default async function FAQPage() {
@@ -41,7 +41,7 @@ export default async function FAQPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Everything you need to know about our clinic timings, doorstep home visits in South Chennai, evidence-based therapy protocols, and booking procedures.
+            Everything you need to know about our clinic timings, 1-hour dedicated slots in Perungudi, evidence-based therapy protocols, and booking procedures.
           </p>
         </div>
       </section>

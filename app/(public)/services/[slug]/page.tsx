@@ -224,14 +224,14 @@ export default async function ServiceDetailPage({
                     Book for {service.title}
                   </h3>
                   <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                    Direct physical evaluation with Dr. Sundaravalli Jayakumar (M.P.T Ortho) at our Perungudi clinic or home visit.
+                    Direct physical evaluation with Dr. Sundaravalli Jayakumar (M.P.T Ortho) at our Perungudi clinic.
                   </p>
                 </div>
 
                 <div className="space-y-3 text-xs text-slate-600 pt-3 border-t border-slate-100">
                   <div className="flex items-center justify-between">
-                    <span>Care Modes:</span>
-                    <strong className="text-slate-900">In-Clinic or Doorstep Home Visit</strong>
+                    <span>Care Format:</span>
+                    <strong className="text-slate-900">1-on-1 In-Clinic Consultation</strong>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Duration:</span>

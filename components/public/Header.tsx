@@ -9,7 +9,11 @@ import {
   Calendar,
   ArrowRight,
   Clock,
+  Phone,
+  MessageSquare,
 } from "lucide-react";
+import { defaultSettings } from "@/lib/defaultData";
+import { generateWhatsAppLink } from "@/lib/utils";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
@@ -18,6 +22,7 @@ const NAV_LINKS = [
   { name: "Conditions", href: "/conditions" },
   { name: "Reviews", href: "/testimonials" },
   { name: "Gallery", href: "/gallery" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
@@ -148,13 +153,35 @@ export function Header() {
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={`tel:${defaultSettings.phone}`}
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold hover:bg-slate-200 transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#0A363D]" />
+                  <span>Call Clinic</span>
+                </a>
+                <a
+                  href={generateWhatsAppLink(
+                    defaultSettings.whatsapp,
+                    "Hello GG Physiotherapy Clinic, I would like to make an enquiry."
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold hover:bg-emerald-100 transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+
               <Link
                 href="/appointment"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#E85D45] text-white font-bold text-sm shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#E85D45] text-white font-bold text-sm shadow-md active:scale-[0.99] transition-all"
               >
                 <Calendar className="w-4 h-4 text-white" />
-                <span>Book In-Clinic or Home Visit</span>
+                <span>Book In-Clinic Appointment</span>
               </Link>
             </div>
           </div>

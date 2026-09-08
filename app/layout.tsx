@@ -1,9 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/ui/Toast";
 import { SchemaOrg } from "@/components/public/SchemaOrg";
 import { defaultSEOSettings } from "@/lib/defaultData";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#0A363D",
+};
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800"],

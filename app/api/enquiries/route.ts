@@ -33,10 +33,16 @@ export async function POST(request: Request) {
       message: message.trim(),
     });
 
-    // Send Resend email notification to admin asynchronously
+    // Send Resend email notifications asynchronously
     const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "contact@ggphysiotherapy.com";
     try {
-      const { sendResendEmail, buildEnquiryEmailTemplate } = await import("@/lib/email");
+      const {
+        sendResendEmail,
+        buildEnquiryEmailTemplate,
+        buildUserEnquiryConfirmationTemplate,
+      } = await import("@/lib/email");
+
+      // 1. Notify clinic admin
       await sendResendEmail({
         to: adminEmail,
         subject: `[New Website Enquiry] ${name.trim()} - ${subject || "Physiotherapy Consultation"}`,
@@ -49,6 +55,19 @@ export async function POST(request: Request) {
         }),
         replyTo: email ? email.trim() : undefined,
       });
+
+      // 2. Send acknowledgement to patient/user if email was provided
+      if (email && email.trim()) {
+        await sendResendEmail({
+          to: email.trim(),
+          subject: `Enquiry Received - GG Physiotherapy Clinic (${subject || "Consultation Query"})`,
+          html: buildUserEnquiryConfirmationTemplate({
+            name: name.trim(),
+            subject: subject || "General Consultation Enquiry",
+            message: message.trim(),
+          }),
+        });
+      }
     } catch (emailErr) {
       console.error("Resend email notification failed:", emailErr);
       // Non-blocking: enquiry is already saved in Firestore

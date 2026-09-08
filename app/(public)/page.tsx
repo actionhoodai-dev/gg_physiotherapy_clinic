@@ -21,7 +21,7 @@ export const revalidate = 60; // ISR revalidation every 60s
 export const metadata: Metadata = {
   title: "GG Physiotherapy Clinic | Best Physiotherapist in Perungudi, Chennai",
   description:
-    "Specialized orthopedic, spine, and neurological physical therapy in Perungudi, Chennai led by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP). 4.9★ rating with 312+ Google reviews. In-Clinic & Home Visits.",
+    "Specialized orthopedic, spine, and neurological physical therapy in Perungudi, Chennai led by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP). 4.9★ rating with 312+ Google reviews. Dedicated In-Clinic Consultation & Rehabilitation.",
 };
 
 export default async function HomePage() {

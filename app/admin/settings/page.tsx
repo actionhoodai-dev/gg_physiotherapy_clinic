@@ -206,29 +206,7 @@ export default function AdminSettingsPage() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-700">Latitude</label>
-            <input
-              type="number"
-              step="0.000001"
-              value={settings.latitude}
-              onChange={(e) => setSettings({ ...settings, latitude: parseFloat(e.target.value) || 0 })}
-              className="w-full h-10 px-3 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-[#0e3b43]"
-            />
-          </div>
 
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-700">Longitude</label>
-            <input
-              type="number"
-              step="0.000001"
-              value={settings.longitude}
-              onChange={(e) => setSettings({ ...settings, longitude: parseFloat(e.target.value) || 0 })}
-              className="w-full h-10 px-3 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-[#0e3b43]"
-            />
-          </div>
-        </div>
       </div>
 
       {/* Consultation Hours */}

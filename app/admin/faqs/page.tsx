@@ -145,7 +145,7 @@ export default function AdminFAQsPage() {
             Frequently Asked Questions (FAQs)
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Manage answers to common patient questions regarding appointments, pain relief, and home visits.
+            Manage answers to common patient questions regarding appointments, pain relief, and clinic treatment protocols.
           </p>
         </div>
 

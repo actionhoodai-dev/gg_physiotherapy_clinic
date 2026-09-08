@@ -150,7 +150,7 @@ export function ContactForm() {
           className="w-full h-12 px-4 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0A363D] bg-white transition-all"
         >
           <option value="General Enquiry">General Consultation Enquiry</option>
-          <option value="Home Visit Request">Home Visit Physiotherapy Request</option>
+          <option value="In-Clinic Assessment">In-Clinic Comprehensive Assessment</option>
           <option value="Spine & Back Pain Care">Spine & Back Pain Care</option>
           <option value="Knee & Joint Pain">Knee & Joint Pain</option>
           <option value="Post-Op Rehabilitation">Post-Operative Rehabilitation</option>

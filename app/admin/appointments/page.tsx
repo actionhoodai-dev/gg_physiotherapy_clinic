@@ -31,7 +31,6 @@ export default function AdminAppointmentsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [modeFilter, setModeFilter] = useState<string>("all");
 
   // Detail / Notes Modal
   const [selectedApt, setSelectedApt] = useState<AppointmentItem | null>(null);
@@ -118,9 +117,7 @@ export default function AdminAppointmentsPage() {
       (item.preferredService && item.preferredService.toLowerCase().includes(search.toLowerCase()));
 
     const matchesStatus = statusFilter === "all" || item.status === statusFilter;
-    const matchesMode = modeFilter === "all" || item.consultationMode === modeFilter;
-
-    return matchesSearch && matchesStatus && matchesMode;
+    return matchesSearch && matchesStatus;
   });
 
   const getStatusBadge = (status: AppointmentItem["status"]) => {
@@ -155,28 +152,11 @@ export default function AdminAppointmentsPage() {
   };
 
   const getModeBadge = (mode: AppointmentItem["consultationMode"]) => {
-    switch (mode) {
-      case "clinic":
-        return (
-          <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
-            Clinic Visit
-          </span>
-        );
-      case "home":
-        return (
-          <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">
-            Home Care
-          </span>
-        );
-      case "online":
-        return (
-          <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
-            Online Tele-rehab
-          </span>
-        );
-      default:
-        return null;
-    }
+    return (
+      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+        In-Clinic Visit
+      </span>
+    );
   };
 
   return (
@@ -189,7 +169,7 @@ export default function AdminAppointmentsPage() {
             Appointments Management
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Review, confirm, and update patient consultations and home visits.
+            Review, confirm, and manage in-clinic patient consultation requests and 1-hour slots.
           </p>
         </div>
 
@@ -255,18 +235,6 @@ export default function AdminAppointmentsPage() {
             <option value="completed">Completed</option>
             <option value="cancelled">Cancelled</option>
           </select>
-
-          <select
-            value={modeFilter}
-            onChange={(e) => setModeFilter(e.target.value)}
-            aria-label="Filter appointments by consultation mode"
-            className="text-xs font-medium px-3 py-2 border border-slate-200 rounded-lg bg-white focus:outline-hidden focus:ring-2 focus:ring-teal-500"
-          >
-            <option value="all">All Modes</option>
-            <option value="clinic">Clinic Visit</option>
-            <option value="home">Home Care</option>
-            <option value="online">Online Consultation</option>
-          </select>
         </div>
       </div>
 
@@ -282,7 +250,7 @@ export default function AdminAppointmentsPage() {
             <CalendarCheck className="w-12 h-12 text-slate-300 mx-auto mb-3" />
             <p className="text-slate-700 font-semibold">No appointments found</p>
             <p className="text-xs text-slate-400 mt-1">
-              {search || statusFilter !== "all" || modeFilter !== "all"
+              {search || statusFilter !== "all"
                 ? "Try clearing your filters or search query"
                 : "New patient booking requests will automatically appear here"}
             </p>

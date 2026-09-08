@@ -6,11 +6,13 @@ import {
   Phone,
   ShieldCheck,
   Building2,
-  Home,
-  Video,
   CheckCircle,
   Star,
   Calendar,
+  Activity,
+  Award,
+  Sparkles,
+  MapPin,
 } from "lucide-react";
 import { defaultSettings } from "@/lib/defaultData";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
@@ -18,7 +20,7 @@ import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Book an Appointment | GG Physiotherapy Clinic Perungudi Chennai",
   description:
-    "Schedule your physiotherapy consultation with Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP) in Perungudi, Chennai. In-Clinic, Home Visit & Online slots available.",
+    "Schedule your dedicated in-clinic physiotherapy consultation with Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP) in Perungudi, Chennai. Modern 1-on-1 offline clinical care and rehabilitation.",
 };
 
 export default async function AppointmentPage({
@@ -35,25 +37,25 @@ export default async function AppointmentPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-teal-200 text-xs font-bold uppercase tracking-wider border border-white/10">
             <Calendar className="w-3.5 h-3.5 text-teal-400" />
-            <span>Direct Clinical Scheduling</span>
+            <span>Dedicated In-Clinic Consultation</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
             Book Your Physiotherapy Consultation{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-200 to-amber-200 block sm:inline">
-              in Chennai.
+              in Perungudi, Chennai.
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Select your preferred consultation format and timing. Our clinical desk in Perungudi will review and confirm your slot promptly.
+            Select your preferred consultation date and 1-hour time slot. Our clinical desk in Perungudi will review and confirm your in-clinic appointment promptly.
           </p>
         </div>
       </section>
 
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <Breadcrumbs items={[{ label: "Book Appointment" }]} />
+        <Breadcrumbs items={[{ label: "Book In-Clinic Appointment" }]} />
       </div>
 
       {/* Main Booking Area */}
@@ -61,7 +63,7 @@ export default async function AppointmentPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* Booking Form (7 Cols) */}
-            <div className="lg:col-span-7 bg-white p-7 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm">
+            <div className="lg:col-span-7 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm">
               <AppointmentForm
                 initialService={service}
                 initialCondition={condition}
@@ -80,7 +82,7 @@ export default async function AppointmentPage({
                 <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
                   <li className="flex items-start gap-2.5">
                     <CheckCircle className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                    <span>In-depth 1-on-1 root cause biomechanical &amp; orthopedic evaluation</span>
+                    <span>In-depth 1-on-1 root cause biomechanical &amp; orthopedic evaluation by Dr. Sundaravalli</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
@@ -93,40 +95,45 @@ export default async function AppointmentPage({
                 </ul>
               </div>
 
-              {/* Consultation Options */}
+              {/* In-Clinic Facility Advantages Card */}
               <div className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
-                <h3 className="font-bold text-xs text-slate-900 uppercase tracking-wider">
-                  Care Options Available
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-xs text-slate-900 uppercase tracking-wider">
+                    In-Clinic Treatment Facility
+                  </h3>
+                  <span className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
+                    Offline Clinic Only
+                  </span>
+                </div>
 
                 <div className="space-y-3 text-xs">
-                  <div className="p-4 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
+                  <div className="p-3.5 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
                     <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                      <Building2 className="w-4 h-4 text-teal-700" />
-                      <span>In-Clinic Visit (Perungudi, Chennai)</span>
+                      <Building2 className="w-4 h-4 text-[#0A363D]" />
+                      <span>Dedicated Clinic at Perungudi</span>
                     </div>
                     <p className="text-slate-600 leading-relaxed">
-                      Access our full suite of digital spinal traction units, electrotherapy bays, and movement gym.
+                      Equipped with digital spinal traction units, ultrasound, IFT electrotherapy bays, and functional rehabilitation gear.
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
+                  <div className="p-3.5 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
                     <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                      <Home className="w-4 h-4 text-teal-700" />
-                      <span>Home Visit Physiotherapy</span>
+                      <Clock className="w-4 h-4 text-[#0A363D]" />
+                      <span>Organized 1-Hour Dedicated Slots</span>
                     </div>
                     <p className="text-slate-600 leading-relaxed">
-                      For elderly citizens, post-operative (TKR/THR), and stroke patients across Perungudi, Velachery, and OMR.
+                      Zero long waiting times. Each patient receives uninterrupted, hands-on clinical therapy with senior physiotherapist.
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
+                  <div className="p-3.5 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
                     <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                      <Video className="w-4 h-4 text-teal-700" />
-                      <span>Online Tele-Physio Consultation</span>
+                      <MapPin className="w-4 h-4 text-[#0A363D]" />
+                      <span>Easy Ground Floor Access &amp; Parking</span>
                     </div>
                     <p className="text-slate-600 leading-relaxed">
-                      Virtual ergonomic workstation audits and guided exercise correction via secure video call.
+                      Convenient for patients with mobility limitations, knee osteoarthritis, or acute lumbar disc pain.
                     </p>
                   </div>
                 </div>
