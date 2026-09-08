@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Public readable content (Services, Conditions, Testimonials, FAQs, Blogs, Gallery, Settings)
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /homepage/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /conditions/{conditionId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /therapists/{therapistId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /gallery/{imageId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /blogs/{blogId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /faqs/{faqId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /seo/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Patient Appointments: Anyone can create a booking, only authenticated admin can read/update/delete
+    match /appointments/{appointmentId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
+    }
+
+    // Patient Enquiries: Anyone can submit an enquiry, only authenticated admin can read/update/delete
+    match /enquiries/{enquiryId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
+    }
+  }
+}
