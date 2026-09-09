@@ -148,7 +148,7 @@ export default async function ContactPage() {
 
                 <div className="pt-2">
                   <a
-                    href={defaultSettings.googleMapsUrl}
+                    href={currentSettings.googleBusinessProfileUrl || "https://maps.app.goo.gl/mdoRS4bubE7rfZhF8"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#0A363D] text-white font-bold text-xs sm:text-sm hover:bg-[#13545E] transition-all shadow-sm"

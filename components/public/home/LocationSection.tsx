@@ -6,7 +6,6 @@ import {
   MapPin,
   Clock,
   Phone,
-  Navigation,
   Calendar,
   MessageSquare,
 } from "lucide-react";
@@ -120,24 +119,14 @@ export function LocationSection({
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row gap-3">
-              <a
-                href={settings.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0A363D] text-white font-bold text-xs hover:bg-[#13545E] shadow-sm transition-all"
-              >
-                <Navigation className="w-4 h-4" />
-                <span>Get Driving Directions</span>
-              </a>
-
+            {/* Action Button */}
+            <div className="pt-2">
               <Link
                 href="/appointment"
-                className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#E85D45] text-white font-bold text-xs hover:bg-[#D44E36] shadow-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#E85D45] text-white font-bold text-xs hover:bg-[#D44E36] shadow-sm transition-all"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Book Slot</span>
+                <span>Book a Slot</span>
               </Link>
             </div>
           </div>
