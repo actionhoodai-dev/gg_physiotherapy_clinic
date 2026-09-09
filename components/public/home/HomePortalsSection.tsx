@@ -12,7 +12,7 @@ export function HomePortalsSection() {
       title: "About Our Clinic & Doctor",
       subtitle: "Dr. Sundaravalli Jayakumar • 20+ Yrs Exp",
       description:
-        "Meet our Chief Consultant Physiotherapist, Osteopathy & Dry Needle Therapist (B.P.T, M.P.T Ortho, DNT, MIAP, FOMT, MSE). Discover our evidence-driven philosophy.",
+        "Meet our Chief Consultant Physiotherapist | FOMT (AUS), MSC Osteopathy & Dry Needle Therapist (B.P.T, M.P.T Ortho, DNT, MIAP). Discover our evidence-driven philosophy.",
       href: "/about",
       cta: "Read Doctor & Clinic Profile",
       icon: UserCheck,

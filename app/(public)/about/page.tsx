@@ -25,7 +25,7 @@ import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 export const metadata: Metadata = {
   title: "About Us | Dr. Sundaravalli Jayakumar | GG Physiotherapy Clinic Chennai",
   description:
-    "Learn about GG Physiotherapy Clinic in Perungudi, Chennai, founded by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP, FOMT, MSE, Osteopathy & Dry Needle Therapist) with over 20 years of clinical orthopedic experience.",
+    "Learn about GG Physiotherapy Clinic in Perungudi, Chennai, founded by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP, FOMT (AUS), MSC Osteopathy & Dry Needle Therapist) with over 20 years of clinical orthopedic experience.",
 };
 
 const CARE_PILLARS = [
@@ -137,13 +137,13 @@ export default function AboutPage() {
                 <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/30 text-teal-200 text-xs font-bold backdrop-blur-md border border-teal-400/30">
                     <Sparkles className="w-3.5 h-3.5 text-teal-300" />
-                    <span>Founder &amp; Chief Consultant | Osteopathy &amp; Dry Needle Therapist</span>
+                    <span>Founder &amp; Chief Consultant | FOMT (AUS), MSC Osteopathy &amp; Dry Needle Therapist</span>
                   </div>
                   <h2 className="text-2xl font-extrabold text-white">
                     Dr. Sundaravalli Jayakumar
                   </h2>
                   <p className="text-xs text-teal-300 font-medium">
-                    B.P.T, M.P.T (Ortho), DNT, MIAP, FOMT, MSE • 20+ Years Clinical Practice
+                    B.P.T, M.P.T (Ortho), DNT, MIAP, FOMT (AUS), MSC Osteopathy • 20+ Years Clinical Practice
                   </p>
                 </div>
               </div>

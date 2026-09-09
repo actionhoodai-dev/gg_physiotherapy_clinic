@@ -67,10 +67,10 @@ export default function AdminProfilePage() {
           <div>
             <h2 className="text-lg font-bold text-slate-900">Dr. Sundaravalli Jayakumar</h2>
             <p className="text-xs text-teal-700 font-semibold mt-0.5">
-              Founder &amp; Chief Consultant | FOMT, MSE, Osteopathy &amp; Dry Needle Therapist
+              Founder &amp; Chief Consultant | FOMT (AUS), MSC Osteopathy &amp; Dry Needle Therapist
             </p>
             <p className="text-xs text-slate-500 mt-0.5">
-              B.P.T, M.P.T (ORTHO), DNT, MIAP, FOMT, MSE
+              B.P.T, M.P.T (ORTHO), DNT, MIAP, FOMT (AUS), MSC Osteopathy
             </p>
           </div>
         </div>

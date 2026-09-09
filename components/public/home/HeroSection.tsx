@@ -78,7 +78,7 @@ export function HeroSection({
               <strong className="text-white font-semibold underline decoration-teal-400/50 underline-offset-4">
                 Dr. Sundaravalli Jayakumar
               </strong>{" "}
-              (B.P.T, M.P.T ORTHO, DNT, MIAP, FOMT, MSE), Founder &amp; Chief Consultant, Osteopathy &amp; Dry Needle Therapist, we provide precise root-cause diagnosis, advanced spinal decompression, and evidence-driven orthopedic rehabilitation in Chennai.
+              (B.P.T, M.P.T ORTHO, DNT, MIAP, FOMT (AUS), MSC Osteopathy), Founder &amp; Chief Consultant, MSC Osteopathy &amp; Dry Needle Therapist, we provide precise root-cause diagnosis, advanced spinal decompression, and evidence-driven orthopedic rehabilitation in Chennai.
             </p>
 
             {/* Clinical Highlights Pill Badges */}
@@ -178,15 +178,15 @@ export function HeroSection({
                     Dr. Sundaravalli Jayakumar
                   </h3>
                   <p className="text-xs text-teal-300 font-medium">
-                    B.P.T, M.P.T (ORTHO), DNT, MIAP, FOMT, MSE
+                    B.P.T, M.P.T (ORTHO), DNT, MIAP, FOMT (AUS), MSC Osteopathy
                   </p>
                   <p className="text-[11px] text-teal-200/80 font-normal">
-                    Osteopathy &amp; Dry Needle Therapist
+                    MSC Osteopathy &amp; Dry Needle Therapist
                   </p>
                 </div>
               </div>
               <p className="text-xs text-slate-200/80 leading-relaxed border-t border-white/10 pt-3">
-                Founder &amp; Chief Consultant Physiotherapist, Osteopathy &amp; Dry Needle Therapist serving Perungudi, Velachery, Thoraipakkam, and the OMR IT Corridor.
+                Founder &amp; Chief Consultant Physiotherapist | FOMT (AUS), MSC Osteopathy &amp; Dry Needle Therapist serving Perungudi, Velachery, Thoraipakkam, and the OMR IT Corridor.
               </p>
               <div className="flex items-center justify-between text-[11px] font-semibold text-teal-200 pt-1">
                 <span>✓ 1-on-1 Personalized Care</span>

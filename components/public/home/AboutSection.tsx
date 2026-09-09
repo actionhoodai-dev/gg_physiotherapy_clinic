@@ -59,7 +59,7 @@ export function AboutSection({
                         20+ Years Experience
                       </span>
                       <span className="text-[11px] text-teal-700 font-semibold block">
-                        FOMT, MSE, Osteopathy &amp; DNT
+                        FOMT (AUS), MSC Osteopathy &amp; DNT
                       </span>
                     </div>
                   </div>
