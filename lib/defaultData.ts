@@ -70,7 +70,7 @@ export const defaultHomepageCMS: HomepageCMS = {
     heroImage: '/images/hero-cinematic.jpg',
     ratingNumber: 4.9,
     reviewCount: 312,
-    experienceYears: 10,
+    experienceYears: 20,
     patientsTreated: '12,500+',
   },
   trustStats: [
@@ -81,7 +81,7 @@ export const defaultHomepageCMS: HomepageCMS = {
     },
     {
       label: 'Clinical Experience',
-      value: '10+ Years',
+      value: '20+ Years',
       description: 'Specialized Orthopedic & Neuro Rehabilitation',
     },
     {
@@ -109,8 +109,8 @@ export const defaultHomepageCMS: HomepageCMS = {
     ],
     image: '/images/doctor-portrait.jpg',
     doctorName: 'Dr. Sundaravalli Jayakumar',
-    doctorTitle: 'Founder & Chief Consultant Physiotherapist',
-    doctorQualifications: 'B.P.T, M.P.T (ORTHO), DNT, MIAP',
+    doctorTitle: 'Founder & Chief Consultant Physiotherapist | FOMT, MSE, Osteopathy & Dry Needle Therapist',
+    doctorQualifications: 'B.P.T, M.P.T (ORTHO), DNT, MIAP, FOMT, MSE',
   },
   whyChooseUs: [
     {
@@ -546,17 +546,19 @@ export const defaultTherapists: TherapistItem[] = [
   {
     id: 'dr-sundaravalli-jayakumar',
     name: 'Dr. Sundaravalli Jayakumar',
-    designation: 'Founder & Chief Consultant Physiotherapist',
-    qualification: 'B.P.T, M.P.T (ORTHO), DNT, MIAP',
-    yearsOfExperience: 10,
+    designation: 'Founder & Chief Consultant Physiotherapist | FOMT, MSE, Osteopathy & Dry Needle Therapist',
+    qualification: 'B.P.T, M.P.T (ORTHO), DNT, MIAP, FOMT, MSE',
+    yearsOfExperience: 20,
     specialization: [
       'Orthopedic & Musculoskeletal Rehabilitation',
+      'Osteopathy & Manual Therapy (FOMT, MSE)',
+      'Dry Needling Therapy (DNT)',
       'Spine Care & Non-Surgical Disc Decompression',
       'Neuro Rehabilitation & Stroke Recovery',
       'Sports Injury Reconditioning',
       'Post-Operative TKR & THR Care',
     ],
-    biography: 'Dr. Sundaravalli Jayakumar is an esteemed consultant physiotherapist based in Perungudi, Chennai. With a Master’s degree in Orthopedic Physiotherapy (M.P.T ORTHO) and specialized Diploma in Neuro Therapy (DNT), she brings over 10 years of focused clinical experience. As an active Member of the Indian Association of Physiotherapists (MIAP), Dr. Sundaravalli has successfully treated over 12,500 patients suffering from severe back pain, knee arthritis, sciatica, and neurological disorders through personalized, hands-on evidence-based care.',
+    biography: 'Dr. Sundaravalli Jayakumar is an esteemed consultant physiotherapist, osteopathy and dry needling specialist based in Perungudi, Chennai. With a Master’s degree in Orthopedic Physiotherapy (M.P.T ORTHO), Fellowship in Orthopedic Manual Therapy (FOMT), MSE, and specialized Diploma in Neuro Therapy (DNT), she brings over 20 years of focused clinical experience. As an active Member of the Indian Association of Physiotherapists (MIAP), Dr. Sundaravalli has successfully treated over 12,500 patients suffering from severe back pain, knee arthritis, sciatica, and neurological disorders through personalized, hands-on evidence-based care.',
     profileImage: '/images/doctor-portrait.jpg',
     languages: ['Tamil', 'English'],
     socialLinks: {
@@ -673,7 +675,7 @@ export const defaultFAQs: FAQItem[] = [
   {
     id: 'faq-5',
     question: 'What qualifications does Dr. Sundaravalli have?',
-    answer: 'Dr. Sundaravalli Jayakumar holds B.P.T, M.P.T (Orthopedics), Diploma in Neuro Therapy (DNT), and is an accredited Member of the Indian Association of Physiotherapists (MIAP) with over 10 years of clinical practice.',
+    answer: 'Dr. Sundaravalli Jayakumar holds B.P.T, M.P.T (Orthopedics), Diploma in Neuro Therapy (DNT), FOMT, MSE, and specialized certifications in Osteopathy & Dry Needling, and is an accredited Member of the Indian Association of Physiotherapists (MIAP) with over 20 years of clinical practice.',
     category: 'Doctor',
     displayOrder: 5,
     published: true,

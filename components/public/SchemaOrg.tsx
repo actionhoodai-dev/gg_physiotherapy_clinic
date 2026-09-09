@@ -9,7 +9,7 @@ export function SchemaOrg() {
     name: defaultSettings.clinicName,
     alternateName: "GG Physiotherapy Clinic Perungudi Chennai",
     description:
-      "Advanced orthopedic, spine, and neurological physical therapy clinic led by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP) in Perungudi, Chennai.",
+      "Advanced orthopedic, spine, and neurological physical therapy clinic led by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP, FOMT, MSE, Osteopathy & Dry Needle Therapist) in Perungudi, Chennai.",
     url: "https://ggphysiotherapy.com",
     telephone: defaultSettings.phone,
     email: defaultSettings.email,

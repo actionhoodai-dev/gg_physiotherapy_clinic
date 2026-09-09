@@ -153,7 +153,7 @@ export async function getHomepageCMS(): Promise<HomepageCMS> {
       const data = snap.data() as HomepageCMS;
       if (data.trustStats) {
         data.trustStats = data.trustStats.map((s) =>
-          s.label === "Clinical Experience" ? { ...s, value: "10+ Years" } : s
+          s.label === "Clinical Experience" ? { ...s, value: "20+ Years" } : s
         );
       }
       return data;

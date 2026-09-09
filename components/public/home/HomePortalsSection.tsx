@@ -10,9 +10,9 @@ export function HomePortalsSection() {
   const portals = [
     {
       title: "About Our Clinic & Doctor",
-      subtitle: "Dr. Sundaravalli Jayakumar • 10+ Yrs Exp",
+      subtitle: "Dr. Sundaravalli Jayakumar • 20+ Yrs Exp",
       description:
-        "Meet our Chief Orthopedic Physiotherapist (B.P.T, M.P.T Ortho, DNT, MIAP). Discover our evidence-driven philosophy and clinical journey.",
+        "Meet our Chief Consultant Physiotherapist, Osteopathy & Dry Needle Therapist (B.P.T, M.P.T Ortho, DNT, MIAP, FOMT, MSE). Discover our evidence-driven philosophy.",
       href: "/about",
       cta: "Read Doctor & Clinic Profile",
       icon: UserCheck,

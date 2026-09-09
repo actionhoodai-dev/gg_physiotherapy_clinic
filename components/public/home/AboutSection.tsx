@@ -56,10 +56,10 @@ export function AboutSection({
                     </div>
                     <div>
                       <span className="font-extrabold text-slate-900 text-sm block">
-                        10+ Years Experience
+                        20+ Years Experience
                       </span>
                       <span className="text-[11px] text-teal-700 font-semibold block">
-                        M.P.T (Ortho) &amp; MIAP
+                        FOMT, MSE, Osteopathy &amp; DNT
                       </span>
                     </div>
                   </div>
