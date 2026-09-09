@@ -32,7 +32,11 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-export function Footer() {
+import { ClinicSettings } from "@/types";
+
+export function Footer({ settings = defaultSettings }: { settings?: ClinicSettings }) {
+  const currentSettings = { ...defaultSettings, ...settings };
+
   return (
     <footer className="bg-[#072025] text-slate-300 pt-16 pb-24 md:pb-12 border-t border-[#0A363D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,29 +75,29 @@ export function Footer() {
               <p className="text-[11px] text-slate-300">
                 Over 312+ verified reviews from patients across Chennai
               </p>
-              <a
-                href={defaultSettings.googleBusinessProfileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[11px] text-teal-300 hover:text-white font-semibold pt-1 transition-colors"
-              >
-                <span>Read verified reviews on Google</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <a
+                  href={currentSettings.googleBusinessProfileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-200 border border-white/10 transition-colors"
+                >
+                  <span>Verified Google Profile</span>
+                  <ExternalLink className="w-3 h-3 text-teal-400" />
+                </a>
 
-            {/* Social Media Link */}
-            <div className="pt-1">
-              <a
-                href={defaultSettings.socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-pink-300 hover:text-white transition-all text-xs font-semibold group"
-                title="Follow GG Physiotherapy Clinic on Instagram"
-              >
-                <InstagramIcon className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
-                <span>Follow @ggphysiotherapyclinic</span>
-              </a>
+                {currentSettings.socialLinks?.instagram && (
+                  <a
+                    href={currentSettings.socialLinks.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-semibold text-pink-300 border border-white/10 transition-colors"
+                  >
+                    <InstagramIcon className="w-3.5 h-3.5 text-pink-400" />
+                    <span>Instagram</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
 
@@ -165,18 +169,18 @@ export function Footer() {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
                 <span className="text-slate-300 leading-relaxed">
-                  {defaultSettings.address}, {defaultSettings.area},{" "}
-                  {defaultSettings.city} - {defaultSettings.pincode}
+                  {currentSettings.address}, {currentSettings.area},{" "}
+                  {currentSettings.city} - {currentSettings.pincode}
                 </span>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
                 <a
-                  href={`tel:${defaultSettings.phone}`}
+                  href={`tel:${currentSettings.phone.replace(/\s+/g, "")}`}
                   className="text-white hover:text-teal-300 font-bold"
                 >
-                  {defaultSettings.phone}
+                  {currentSettings.phone}
                 </a>
               </div>
 

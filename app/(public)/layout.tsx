@@ -2,22 +2,27 @@ import React from "react";
 import { TopBar } from "@/components/public/TopBar";
 import { Header } from "@/components/public/Header";
 import { Footer } from "@/components/public/Footer";
-import { StickyMobileCTA } from "@/components/public/StickyMobileCTA";
 import { WhatsAppFAB } from "@/components/public/WhatsAppFAB";
 
-export default function PublicLayout({
+import { getClinicSettings } from "@/lib/firestore";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settings = await getClinicSettings();
+
   return (
     <div className="flex flex-col min-h-screen">
-      <TopBar />
-      <Header />
+      <TopBar settings={settings} />
+      <Header settings={settings} />
       <main className="flex-1">{children}</main>
-      <Footer />
-      <WhatsAppFAB />
-      <StickyMobileCTA />
+      <Footer settings={settings} />
+      <WhatsAppFAB settings={settings} />
     </div>
   );
 }

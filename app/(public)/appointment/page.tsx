@@ -15,6 +15,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { defaultSettings } from "@/lib/defaultData";
+import { getClinicSettings } from "@/lib/firestore";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -28,7 +29,10 @@ export default async function AppointmentPage({
 }: {
   searchParams: Promise<{ service?: string; condition?: string; doctor?: string }>;
 }) {
-  const { service, condition } = await searchParams;
+  const [{ service, condition }, settings] = await Promise.all([
+    searchParams,
+    getClinicSettings(),
+  ]);
 
   return (
     <div className="bg-[#FBF9F5]">
@@ -67,6 +71,7 @@ export default async function AppointmentPage({
               <AppointmentForm
                 initialService={service}
                 initialCondition={condition}
+                settings={settings}
               />
             </div>
 
@@ -157,11 +162,11 @@ export default async function AppointmentPage({
                   Call directly to check same-day emergency appointment slots:
                 </p>
                 <a
-                  href={`tel:${defaultSettings.phone}`}
+                  href={`tel:${settings.phone.replace(/\s+/g, "")}`}
                   className="inline-flex items-center gap-2 text-base font-extrabold text-teal-300 hover:text-white transition-colors pt-1"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>{defaultSettings.phone}</span>
+                  <span>{settings.phone}</span>
                 </a>
               </div>
             </div>

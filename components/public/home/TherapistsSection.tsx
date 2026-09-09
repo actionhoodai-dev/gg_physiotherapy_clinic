@@ -31,7 +31,7 @@ export function TherapistsSection({
           </Reveal>
           <Reveal direction="up" delay={150}>
             <p className="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
-              Over 15 years of specialized clinical practice in orthopedic manual therapy and advanced spinal rehabilitation in Chennai.
+              Over 10 years of specialized clinical practice in orthopedic manual therapy and advanced spinal rehabilitation in Chennai.
             </p>
           </Reveal>
         </div>

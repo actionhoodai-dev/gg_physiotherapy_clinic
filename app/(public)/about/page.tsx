@@ -25,7 +25,7 @@ import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 export const metadata: Metadata = {
   title: "About Us | Dr. Sundaravalli Jayakumar | GG Physiotherapy Clinic Chennai",
   description:
-    "Learn about GG Physiotherapy Clinic in Perungudi, Chennai, founded by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP) with over 15 years of clinical orthopedic experience.",
+    "Learn about GG Physiotherapy Clinic in Perungudi, Chennai, founded by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP) with over 10 years of clinical orthopedic experience.",
 };
 
 const CARE_PILLARS = [
@@ -143,7 +143,7 @@ export default function AboutPage() {
                     Dr. Sundaravalli Jayakumar
                   </h2>
                   <p className="text-xs text-teal-300 font-medium">
-                    B.P.T, M.P.T (Ortho), DNT, MIAP • 15+ Years Clinical Practice
+                    B.P.T, M.P.T (Ortho), DNT, MIAP • 10+ Years Clinical Practice
                   </p>
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function AboutPage() {
               {/* Stat Strip */}
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-                  <span className="block text-2xl font-extrabold text-[#0A363D]">15+</span>
+                  <span className="block text-2xl font-extrabold text-[#0A363D]">10+</span>
                   <span className="text-[11px] text-slate-500 font-semibold">Years Active</span>
                 </div>
                 <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
@@ -267,7 +267,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 15+ Years Evolution Timeline */}
+      {/* 10+ Years Evolution Timeline */}
       <section className="py-16 lg:py-24 bg-[#FBF9F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
@@ -275,7 +275,7 @@ export default function AboutPage() {
               Clinic History
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              15+ Years of Dedicated Clinical Service in Chennai
+              10+ Years of Dedicated Clinical Service in Chennai
             </h2>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
               From our humble beginnings to a premier orthopedic physical therapy practice trusted by leading orthopedic surgeons and families across Chennai.

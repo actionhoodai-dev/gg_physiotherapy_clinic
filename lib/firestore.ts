@@ -44,26 +44,100 @@ import {
    ========================================================================= */
 
 export async function getClinicSettings(): Promise<ClinicSettings> {
-  if (!db || !isFirebaseConfigured()) return defaultSettings;
-  try {
-    const docRef = doc(db, "settings", "general");
-    const snap = await getDoc(docRef);
-    if (snap.exists()) {
-      return snap.data() as ClinicSettings;
+  // 1. In browser, fetch from /api/settings
+  if (typeof window !== "undefined") {
+    try {
+      const res = await fetch("/api/settings", { cache: "no-store" });
+      if (res.ok) {
+        return (await res.json()) as ClinicSettings;
+      }
+    } catch (e) {
+      console.warn("Client fetch /api/settings error:", e);
     }
-  } catch (err) {
-    console.error("Error fetching clinic settings from Firestore:", err);
   }
+
+  // 2. On server, read local file first if present
+  if (typeof window === "undefined") {
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+      const filePath = path.join(process.cwd(), "data", "clinicSettings.json");
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath, "utf-8");
+        return { ...defaultSettings, ...JSON.parse(content) };
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // 3. Fallback to Firestore
+  if (db && isFirebaseConfigured()) {
+    try {
+      const docRef = doc(db, "settings", "general");
+      const snap = await getDoc(docRef);
+      if (snap.exists()) {
+        return { ...defaultSettings, ...snap.data() } as ClinicSettings;
+      }
+    } catch (err) {
+      console.error("Error fetching clinic settings from Firestore:", err);
+    }
+  }
+
   return defaultSettings;
 }
 
 export async function updateClinicSettings(settings: Partial<ClinicSettings>): Promise<void> {
-  if (!db || !isFirebaseConfigured()) {
-    console.warn("Firestore not configured, skipping remote write");
-    return;
+  // 1. In browser, POST to /api/settings
+  if (typeof window !== "undefined") {
+    try {
+      const res = await fetch("/api/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(settings),
+      });
+      if (res.ok) {
+        return;
+      }
+    } catch (e) {
+      console.warn("Client update /api/settings error:", e);
+    }
   }
-  const docRef = doc(db, "settings", "general");
-  await setDoc(docRef, { ...settings, updatedAt: new Date().toISOString() }, { merge: true });
+
+  // 2. On server, save to local data file
+  if (typeof window === "undefined") {
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+      const dataDir = path.join(process.cwd(), "data");
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+      const filePath = path.join(dataDir, "clinicSettings.json");
+      const existing = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, "utf-8")) : {};
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify(
+          { ...defaultSettings, ...existing, ...settings, updatedAt: new Date().toISOString() },
+          null,
+          2
+        ),
+        "utf-8"
+      );
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // 3. Sync to Firestore
+  if (db && isFirebaseConfigured()) {
+    try {
+      const docRef = doc(db, "settings", "general");
+      await setDoc(docRef, { ...settings, updatedAt: new Date().toISOString() }, { merge: true });
+    } catch (err) {
+      console.error("Firestore updateClinicSettings error:", err);
+    }
+  }
 }
 
 /* =========================================================================
@@ -76,7 +150,13 @@ export async function getHomepageCMS(): Promise<HomepageCMS> {
     const docRef = doc(db, "homepage", "content");
     const snap = await getDoc(docRef);
     if (snap.exists()) {
-      return snap.data() as HomepageCMS;
+      const data = snap.data() as HomepageCMS;
+      if (data.trustStats) {
+        data.trustStats = data.trustStats.map((s) =>
+          s.label === "Clinical Experience" ? { ...s, value: "10+ Years" } : s
+        );
+      }
+      return data;
     }
   } catch (err) {
     console.error("Error fetching homepage CMS from Firestore:", err);
@@ -242,7 +322,14 @@ export async function getTestimonials(onlyPublished = false): Promise<Testimonia
       : query(colRef, orderBy("displayOrder", "asc"));
     const snap = await getDocs(q);
     if (!snap.empty) {
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as TestimonialItem));
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TestimonialItem));
+      // If Firestore only has a few legacy seed items, merge with our full list of Google reviews
+      if (items.length < defaultTestimonials.length) {
+        const itemIds = new Set(items.map((i) => i.id));
+        const missing = defaultTestimonials.filter((d) => !itemIds.has(d.id));
+        return [...items, ...(onlyPublished ? missing.filter((t) => t.published) : missing)];
+      }
+      return items;
     }
   } catch (err) {
     console.error("Error fetching testimonials:", err);

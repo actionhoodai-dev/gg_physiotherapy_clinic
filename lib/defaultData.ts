@@ -10,12 +10,13 @@ import {
   FAQItem,
   SEOSettings,
 } from '@/types';
+import { googleReviews } from './googleReviews';
 
 export const defaultSettings: ClinicSettings = {
   clinicName: 'GG Physiotherapy Clinic',
   tagline: 'Advanced Orthopedic & Neuro Rehabilitation in Perungudi, Chennai',
   logo: '/logo.svg',
-  phone: '090940 26006',
+  phone: '90940 26006',
   whatsapp: '+919094026006',
   email: 'contact@ggphysiotherapy.com',
   address: '22, 1st Main Rd, Phase-1, Thirumalai Nagar Annexe, Perungudi',
@@ -64,12 +65,12 @@ export const defaultHomepageCMS: HomepageCMS = {
     subtitle: 'Led by Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP), GG Physiotherapy provides evidence-based orthopedic, sports injury, and neuro rehabilitation in Perungudi, Chennai.',
     primaryCtaText: 'Book an Appointment',
     primaryCtaLink: '/appointment',
-    secondaryCtaText: 'Call 090940 26006',
-    secondaryCtaLink: 'tel:09094026006',
+    secondaryCtaText: 'Call 90940 26006',
+    secondaryCtaLink: 'tel:9094026006',
     heroImage: '/images/hero-cinematic.jpg',
     ratingNumber: 4.9,
     reviewCount: 312,
-    experienceYears: 15,
+    experienceYears: 10,
     patientsTreated: '12,500+',
   },
   trustStats: [
@@ -80,7 +81,7 @@ export const defaultHomepageCMS: HomepageCMS = {
     },
     {
       label: 'Clinical Experience',
-      value: '15+ Years',
+      value: '10+ Years',
       description: 'Specialized Orthopedic & Neuro Rehabilitation',
     },
     {
@@ -547,7 +548,7 @@ export const defaultTherapists: TherapistItem[] = [
     name: 'Dr. Sundaravalli Jayakumar',
     designation: 'Founder & Chief Consultant Physiotherapist',
     qualification: 'B.P.T, M.P.T (ORTHO), DNT, MIAP',
-    yearsOfExperience: 15,
+    yearsOfExperience: 10,
     specialization: [
       'Orthopedic & Musculoskeletal Rehabilitation',
       'Spine Care & Non-Surgical Disc Decompression',
@@ -555,7 +556,7 @@ export const defaultTherapists: TherapistItem[] = [
       'Sports Injury Reconditioning',
       'Post-Operative TKR & THR Care',
     ],
-    biography: 'Dr. Sundaravalli Jayakumar is an esteemed consultant physiotherapist based in Perungudi, Chennai. With a Master’s degree in Orthopedic Physiotherapy (M.P.T ORTHO) and specialized Diploma in Neuro Therapy (DNT), she brings over 15 years of focused clinical experience. As an active Member of the Indian Association of Physiotherapists (MIAP), Dr. Sundaravalli has successfully treated over 12,500 patients suffering from severe back pain, knee arthritis, sciatica, and neurological disorders through personalized, hands-on evidence-based care.',
+    biography: 'Dr. Sundaravalli Jayakumar is an esteemed consultant physiotherapist based in Perungudi, Chennai. With a Master’s degree in Orthopedic Physiotherapy (M.P.T ORTHO) and specialized Diploma in Neuro Therapy (DNT), she brings over 10 years of focused clinical experience. As an active Member of the Indian Association of Physiotherapists (MIAP), Dr. Sundaravalli has successfully treated over 12,500 patients suffering from severe back pain, knee arthritis, sciatica, and neurological disorders through personalized, hands-on evidence-based care.',
     profileImage: '/images/doctor-portrait.jpg',
     languages: ['Tamil', 'English'],
     socialLinks: {
@@ -568,60 +569,7 @@ export const defaultTherapists: TherapistItem[] = [
   },
 ];
 
-export const defaultTestimonials: TestimonialItem[] = [
-  {
-    id: 'review-1',
-    patientName: 'Karthik Subramanian',
-    treatment: 'Spine & Sciatica Rehabilitation',
-    rating: 5,
-    review: 'I was suffering from severe lower back pain and sciatica that radiated down my right leg. Sitting at my IT job in OMR was unbearable. Within 10 sessions under Dr. Sundaravalli’s care with traction and guided exercises, my pain reduced by 90%. Very methodical and compassionate doctor.',
-    location: 'Perungudi, Chennai',
-    featured: true,
-    published: true,
-    displayOrder: 1,
-    source: 'google',
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'review-2',
-    patientName: 'Meenakshi Sundaram',
-    treatment: 'Knee Osteoarthritis Care',
-    rating: 5,
-    review: 'I had severe knee pain and struggled to climb stairs in our apartment. Dr. Sundaravalli treated me with great patience. The strengthening exercises and therapy gave me great confidence. I am now walking comfortably without pain killers. Highly recommend GG Physiotherapy!',
-    location: 'Thirumalai Nagar, Perungudi',
-    featured: true,
-    published: true,
-    displayOrder: 2,
-    source: 'google',
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'review-3',
-    patientName: 'Vignesh R.',
-    treatment: 'Sports Injury & Frozen Shoulder',
-    rating: 5,
-    review: 'Could not lift my right arm above shoulder level due to a sports injury that developed into a frozen shoulder. The doctor explained the exact stages of recovery and worked on joint mobilization. Fantastic recovery in just 6 weeks. 4.9 rating on Google is truly well deserved!',
-    location: 'Thoraipakkam, Chennai',
-    featured: true,
-    published: true,
-    displayOrder: 3,
-    source: 'google',
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'review-4',
-    patientName: 'Lakshmi Narayanan',
-    treatment: 'Post-Op Knee Replacement Rehab',
-    rating: 5,
-    review: 'Brought my 72-year-old mother for post-knee replacement rehabilitation at GG Physiotherapy Clinic. The clinic team was punctual, gentle, and encouraged her every day. Within 3 weeks my mother was able to walk independently without a stick. Thank you Dr. Sundaravalli madam.',
-    location: 'Velachery, Chennai',
-    featured: true,
-    published: true,
-    displayOrder: 4,
-    source: 'google',
-    createdAt: new Date().toISOString(),
-  },
-];
+export const defaultTestimonials: TestimonialItem[] = googleReviews;
 
 export const defaultGallery: GalleryItem[] = [];
 
@@ -717,7 +665,7 @@ export const defaultFAQs: FAQItem[] = [
   {
     id: 'faq-4',
     question: 'How do I book an appointment?',
-    answer: 'You can book directly via our website booking form, call us at 090940 26006, or send a quick message to our clinic WhatsApp (+91 90940 26006). Our clinic team will confirm your preferred time slot immediately.',
+    answer: 'You can book directly via our website booking form, call us at 90940 26006, or send a quick message to our clinic WhatsApp (+91 90940 26006). Our clinic team will confirm your preferred time slot immediately.',
     category: 'Appointments',
     displayOrder: 4,
     published: true,
@@ -725,7 +673,7 @@ export const defaultFAQs: FAQItem[] = [
   {
     id: 'faq-5',
     question: 'What qualifications does Dr. Sundaravalli have?',
-    answer: 'Dr. Sundaravalli Jayakumar holds B.P.T, M.P.T (Orthopedics), Diploma in Neuro Therapy (DNT), and is an accredited Member of the Indian Association of Physiotherapists (MIAP) with over 15 years of clinical practice.',
+    answer: 'Dr. Sundaravalli Jayakumar holds B.P.T, M.P.T (Orthopedics), Diploma in Neuro Therapy (DNT), and is an accredited Member of the Indian Association of Physiotherapists (MIAP) with over 10 years of clinical practice.',
     category: 'Doctor',
     displayOrder: 5,
     published: true,

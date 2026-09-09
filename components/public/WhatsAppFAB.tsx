@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { defaultSettings } from "@/lib/defaultData";
 import { generateWhatsAppLink } from "@/lib/utils";
+import { ClinicSettings } from "@/types";
 
-export function WhatsAppFAB() {
+export function WhatsAppFAB({ settings = defaultSettings }: { settings?: ClinicSettings }) {
+  const currentSettings = { ...defaultSettings, ...settings };
   const [mounted, setMounted] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -27,13 +29,13 @@ export function WhatsAppFAB() {
   if (!mounted) return null;
 
   const whatsappUrl = generateWhatsAppLink(
-    defaultSettings.whatsapp,
+    currentSettings.whatsapp,
     "Hello GG Physiotherapy Clinic, I would like to consult with Dr. Sundaravalli Jayakumar."
   );
 
   return (
     <div
-      className="fixed z-50 bottom-20 right-4 md:bottom-8 md:right-8 flex items-center group select-none"
+      className="fixed z-50 bottom-6 right-4 sm:bottom-8 sm:right-8 flex items-center group select-none"
       role="complementary"
       aria-label="WhatsApp Quick Contact"
     >

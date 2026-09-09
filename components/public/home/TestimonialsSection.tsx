@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Star, ExternalLink, Quote, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { Star, ExternalLink, Quote, ChevronLeft, ChevronRight, CheckCircle2, ArrowRight } from "lucide-react";
 import { TestimonialItem } from "@/types";
 import { defaultTestimonials, defaultSettings } from "@/lib/defaultData";
 import { Reveal } from "@/components/ui/Reveal";
@@ -11,15 +12,17 @@ export function TestimonialsSection({
 }: {
   testimonials?: TestimonialItem[];
 }) {
+  const spotlightList = testimonials.filter((t) => t.featured).slice(0, 10);
+  const displayList = spotlightList.length > 0 ? spotlightList : testimonials.slice(0, 10);
   const [activeIdx, setActiveIdx] = useState(0);
-  const featured = testimonials[activeIdx] || testimonials[0];
+  const featured = displayList[activeIdx] || displayList[0];
 
   const handlePrev = () => {
-    setActiveIdx((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    setActiveIdx((prev) => (prev === 0 ? displayList.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setActiveIdx((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    setActiveIdx((prev) => (prev === displayList.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -112,7 +115,7 @@ export function TestimonialsSection({
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <span className="text-xs font-bold text-slate-400 px-2">
-                      {activeIdx + 1} / {testimonials.length}
+                      {activeIdx + 1} / {displayList.length}
                     </span>
                     <button
                       type="button"
@@ -130,7 +133,7 @@ export function TestimonialsSection({
         )}
 
         {/* Supporting Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {testimonials.slice(0, 3).map((t, idx) => (
             <Reveal key={t.id} delay={idx * 100} direction="up">
               <div
@@ -159,6 +162,17 @@ export function TestimonialsSection({
               </div>
             </Reveal>
           ))}
+        </div>
+
+        {/* View All Reviews Button */}
+        <div className="text-center">
+          <Link
+            href="/testimonials"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-slate-300 hover:border-teal-500 text-slate-800 font-bold text-sm hover:bg-teal-50/50 shadow-xs transition-all active:scale-[0.98]"
+          >
+            <span>Read All 312+ Patient Reviews</span>
+            <ArrowRight className="w-4 h-4 text-teal-600" />
+          </Link>
         </div>
       </div>
     </section>

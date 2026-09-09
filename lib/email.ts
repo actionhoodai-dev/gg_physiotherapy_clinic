@@ -106,7 +106,7 @@ export function buildEnquiryEmailTemplate(enquiry: {
       </div>
       
       <div style="background-color: #f1f5f9; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b;">
-        <p style="margin: 0;">GG Physiotherapy Clinic · 22, 1st Main Rd, Perungudi, Chennai 600096 · 090940 26006</p>
+        <p style="margin: 0;">GG Physiotherapy Clinic · 22, 1st Main Rd, Perungudi, Chennai 600096 · 90940 26006</p>
       </div>
     </div>
   `;
@@ -144,7 +144,7 @@ export function buildUserEnquiryConfirmationTemplate(enquiry: {
 
         <div style="margin: 20px 0; padding: 14px; background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 8px; text-align: center;">
           <p style="margin: 0 0 6px; font-size: 13px; font-weight: 600; color: #0f766e;">Direct Clinic Phone & WhatsApp</p>
-          <a href="tel:09094026006" style="display: inline-block; font-size: 16px; font-weight: 800; color: #0A363D; text-decoration: none;">+91 90940 26006</a>
+          <a href="tel:9094026006" style="display: inline-block; font-size: 16px; font-weight: 800; color: #0A363D; text-decoration: none;">+91 90940 26006</a>
         </div>
 
         <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin: 0;">
@@ -303,7 +303,7 @@ export function buildPatientAppointmentConfirmationTemplate(appointment: {
             <em>(Landmark: Near Thirumalai Nagar Annexe, Ground Floor Clinic with Dedicated Parking)</em>
           </p>
           <p style="margin: 0 0 12px; font-size: 13px; color: #134e4a;">
-            <strong>Clinic Direct Line:</strong> <a href="tel:09094026006" style="color: #0f766e; font-weight: 700; text-decoration: none;">090940 26006</a>
+            <strong>Clinic Direct Line:</strong> <a href="tel:9094026006" style="color: #0f766e; font-weight: 700; text-decoration: none;">90940 26006</a>
           </p>
           <div style="text-align: center; margin-top: 10px;">
             <a href="https://maps.google.com/?q=GG+Physiotherapy+Clinic+Perungudi+Chennai" style="display: inline-block; background-color: #0A363D; color: #ffffff; text-decoration: none; padding: 10px 18px; font-weight: 600; border-radius: 8px; font-size: 13px;">
@@ -313,7 +313,7 @@ export function buildPatientAppointmentConfirmationTemplate(appointment: {
         </div>
 
         <p style="font-size: 12px; color: #64748b; line-height: 1.5; text-align: center; margin: 0;">
-          Please arrive 10 minutes prior to your scheduled slot for registration. If you need to reschedule, kindly contact our desk at 090940 26006.
+          Please arrive 10 minutes prior to your scheduled slot for registration. If you need to reschedule, kindly contact our desk at 90940 26006.
         </p>
       </div>
 

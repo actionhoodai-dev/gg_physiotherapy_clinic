@@ -17,7 +17,7 @@ import {
   HeartHandshake,
   CheckCircle2,
 } from "lucide-react";
-import { getServices } from "@/lib/firestore";
+import { getServices, getClinicSettings } from "@/lib/firestore";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 
 export const revalidate = 60;
@@ -87,7 +87,10 @@ const SERVICE_FAQS = [
 ];
 
 export default async function ServicesPage() {
-  const services = await getServices(true);
+  const [services, settings] = await Promise.all([
+    getServices(true),
+    getClinicSettings(),
+  ]);
 
   return (
     <div className="bg-[#FBF9F5]">
@@ -292,10 +295,10 @@ export default async function ServicesPage() {
               <span>Book Clinical Assessment</span>
             </Link>
             <a
-              href="tel:09094026006"
+              href={`tel:${settings.phone.replace(/\s+/g, "")}`}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/20 transition-colors"
             >
-              <span>Call Clinic Directly</span>
+              <span>Call {settings.phone}</span>
             </a>
           </div>
         </div>

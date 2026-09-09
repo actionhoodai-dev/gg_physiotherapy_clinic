@@ -2,10 +2,32 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import Link from "next/link";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  Camera,
+  Calendar,
+  Phone,
+  MessageSquare,
+  Sparkles,
+  Building2,
+} from "lucide-react";
 import { GalleryItem } from "@/types";
+import { defaultSettings } from "@/lib/defaultData";
+import { generateWhatsAppLink } from "@/lib/utils";
 
-export function GalleryClient({ initialItems }: { initialItems: GalleryItem[] }) {
+export function GalleryClient({
+  initialItems = [],
+  phone = defaultSettings.phone,
+  whatsapp = defaultSettings.whatsapp,
+}: {
+  initialItems?: GalleryItem[];
+  phone?: string;
+  whatsapp?: string;
+}) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
 
@@ -36,6 +58,70 @@ export function GalleryClient({ initialItems }: { initialItems: GalleryItem[] })
     }
   };
 
+  const whatsappRequestUrl = generateWhatsAppLink(
+    whatsapp,
+    "Hello GG Physiotherapy Clinic, I would like to request photographs and a facility walkthrough of your clinic."
+  );
+
+  // If no images have been uploaded yet, render the clean notice card
+  if (!initialItems || initialItems.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto text-center py-16 px-6 sm:px-10 bg-white rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+        <div className="w-16 h-16 rounded-2xl bg-teal-50 text-[#0A363D] flex items-center justify-center mx-auto shadow-xs border border-teal-100">
+          <Camera className="w-8 h-8 text-[#0A363D]" />
+        </div>
+
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-teal-50 text-teal-800 border border-teal-200/70">
+            <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+            <span>Updated Photographs Coming Soon</span>
+          </div>
+
+          <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+            Clinic Photographs Being Updated
+          </h3>
+
+          <p className="text-sm text-slate-600 leading-relaxed max-w-lg mx-auto">
+            Our high-resolution clinic space and specialized rehabilitation equipment photographs are currently being updated. In the meantime, you are warmly invited to request photos directly via WhatsApp or visit our clinic in Thirumalai Nagar Annexe, Perungudi, Chennai for an in-person facility walkthrough.
+          </p>
+        </div>
+
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={whatsappRequestUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#25D366] text-white font-bold text-xs sm:text-sm hover:bg-[#20ba59] transition-all shadow-sm hover:shadow active:scale-[0.98]"
+          >
+            <MessageSquare className="w-4 h-4" />
+            <span>Request Photos via WhatsApp</span>
+          </a>
+
+          <a
+            href={`tel:${phone.replace(/\s+/g, "")}`}
+            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-100 text-slate-800 font-bold text-xs sm:text-sm hover:bg-slate-200 transition-colors border border-slate-200/80"
+          >
+            <Phone className="w-4 h-4 text-teal-700" />
+            <span>Call {phone}</span>
+          </a>
+
+          <Link
+            href="/appointment"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#E85D45] text-white font-bold text-xs sm:text-sm hover:bg-[#D44E36] transition-all shadow-sm active:scale-[0.98]"
+          >
+            <Calendar className="w-4 h-4" />
+            <span>Schedule In-Clinic Visit</span>
+          </Link>
+        </div>
+
+        <div className="pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-xs text-slate-500 font-medium">
+          <Building2 className="w-3.5 h-3.5 text-teal-600" />
+          <span>Ground floor clinic with dedicated parking • 22, 1st Main Rd, Perungudi</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Filter Tabs */}
@@ -58,72 +144,48 @@ export function GalleryClient({ initialItems }: { initialItems: GalleryItem[] })
         ))}
       </div>
 
-      {/* Grid or Graceful Empty State */}
+      {/* Grid or Category Empty State */}
       {filteredItems.length === 0 ? (
-        <div className="max-w-2xl mx-auto text-center py-16 px-6 bg-white rounded-3xl border border-slate-200/80 shadow-xs space-y-5">
-          <div className="w-16 h-16 rounded-2xl bg-teal-50 text-[#0A363D] flex items-center justify-center mx-auto">
-            <Maximize2 className="w-7 h-7 text-teal-700" />
-          </div>
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold text-slate-900">
-              Clinic Photographs Being Updated
-            </h3>
-            <p className="text-sm text-slate-600 leading-relaxed max-w-lg mx-auto">
-              Our clinic space and specialized rehabilitation equipment photographs are being freshly updated. In the meantime, you are warmly welcome to visit our clinic in Thirumalai Nagar Annexe, Perungudi, Chennai for an in-person facility walkthrough or direct evaluation.
-            </p>
-          </div>
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="/appointment"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#E85D45] text-white font-bold text-xs sm:text-sm hover:bg-[#D44E36] transition-all shadow-sm"
-            >
-              <span>Schedule In-Clinic Assessment</span>
-            </a>
-            <a
-              href="tel:09094026006"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-100 text-slate-800 font-bold text-xs sm:text-sm hover:bg-slate-200 transition-colors"
-            >
-              <span>Call 090940 26006</span>
-            </a>
-          </div>
+        <div className="max-w-md mx-auto text-center py-12 px-6 bg-white rounded-2xl border border-slate-200/80 text-xs text-slate-500">
+          No photographs found in this category.
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {filteredItems.map((item, index) => (
-          <div
-            key={item.id}
-            onClick={() => setActiveLightboxIndex(index)}
-            className="group relative bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl cursor-pointer transition-all duration-300"
-          >
-            <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-100">
-              <Image
-                src={item.imageUrl}
-                alt={item.altText}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, 400px"
-              />
-              <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="p-3 rounded-full bg-white text-[#0A363D] shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                  <Maximize2 className="w-5 h-5" />
-                </span>
+          {filteredItems.map((item, index) => (
+            <div
+              key={item.id}
+              onClick={() => setActiveLightboxIndex(index)}
+              className="group relative bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl cursor-pointer transition-all duration-300"
+            >
+              <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-100">
+                <Image
+                  src={item.imageUrl}
+                  alt={item.altText || item.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
+                <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="p-3 rounded-full bg-white text-[#0A363D] shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <Maximize2 className="w-5 h-5" />
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-5">
+                <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#0A363D] transition-colors line-clamp-1">
+                  {item.title}
+                </h3>
+                {item.caption && (
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-1">
+                    {item.caption}
+                  </p>
+                )}
               </div>
             </div>
-
-            <div className="p-5">
-              <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#0A363D] transition-colors line-clamp-1">
-                {item.title}
-              </h3>
-              {item.caption && (
-                <p className="text-xs text-slate-500 mt-1 line-clamp-1">
-                  {item.caption}
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    )}
+          ))}
+        </div>
+      )}
 
       {/* Lightbox Dialog */}
       {activeLightboxIndex !== null && filteredItems[activeLightboxIndex] && (
@@ -168,7 +230,7 @@ export function GalleryClient({ initialItems }: { initialItems: GalleryItem[] })
             <div className="relative w-full h-[65vh] rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src={filteredItems[activeLightboxIndex].imageUrl}
-                alt={filteredItems[activeLightboxIndex].altText}
+                alt={filteredItems[activeLightboxIndex].altText || filteredItems[activeLightboxIndex].title}
                 fill
                 className="object-contain"
                 priority

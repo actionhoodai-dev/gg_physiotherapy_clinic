@@ -10,7 +10,7 @@ export function HomePortalsSection() {
   const portals = [
     {
       title: "About Our Clinic & Doctor",
-      subtitle: "Dr. Sundaravalli Jayakumar • 15+ Yrs Exp",
+      subtitle: "Dr. Sundaravalli Jayakumar • 10+ Yrs Exp",
       description:
         "Meet our Chief Orthopedic Physiotherapist (B.P.T, M.P.T Ortho, DNT, MIAP). Discover our evidence-driven philosophy and clinical journey.",
       href: "/about",
@@ -18,7 +18,7 @@ export function HomePortalsSection() {
       icon: UserCheck,
       image: "/images/doctor-portrait.jpg",
       badge: "Clinical Leadership",
-      accent: "from-teal-900/90 to-[#0A363D]/95",
+      accent: "from-slate-950/90 via-[#0A363D]/60 to-slate-900/20",
     },
     {
       title: "Clinical Services & Treatments",
@@ -30,7 +30,7 @@ export function HomePortalsSection() {
       icon: Stethoscope,
       image: "/images/hero-cinematic.jpg",
       badge: "Targeted Rehabilitation",
-      accent: "from-[#0A363D]/90 to-emerald-950/95",
+      accent: "from-slate-950/90 via-emerald-950/60 to-slate-900/20",
     },
     {
       title: "Conditions We Treat",
@@ -42,7 +42,7 @@ export function HomePortalsSection() {
       icon: Activity,
       image: "/images/doctor-consultation.jpg",
       badge: "Pathology Care",
-      accent: "from-slate-900/90 to-teal-950/95",
+      accent: "from-slate-950/90 via-teal-950/60 to-slate-900/20",
     },
     {
       title: "Clinic Facility & Equipment Tour",
@@ -54,7 +54,7 @@ export function HomePortalsSection() {
       icon: Camera,
       image: "/images/clinic-gym.jpg",
       badge: "Facility Showcase",
-      accent: "from-[#08282E]/90 to-slate-950/95",
+      accent: "from-slate-950/90 via-slate-900/60 to-slate-900/20",
     },
   ];
 
@@ -101,7 +101,7 @@ export function HomePortalsSection() {
 
                   {/* Gradient Overlay */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-t ${portal.accent} opacity-85 group-hover:opacity-95 transition-opacity duration-300`}
+                    className={`absolute inset-0 bg-gradient-to-t ${portal.accent} opacity-85 group-hover:opacity-75 transition-opacity duration-300`}
                   />
 
                   {/* Card Content */}

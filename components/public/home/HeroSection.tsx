@@ -15,15 +15,19 @@ import {
 } from "lucide-react";
 import { defaultHomepageCMS, defaultSettings } from "@/lib/defaultData";
 import { generateWhatsAppLink } from "@/lib/utils";
+import { ClinicSettings, HomepageCMS } from "@/types";
 
 export function HeroSection({
   cms = defaultHomepageCMS,
+  settings = defaultSettings,
 }: {
-  cms?: typeof defaultHomepageCMS;
+  cms?: HomepageCMS;
+  settings?: ClinicSettings;
 }) {
+  const currentSettings = { ...defaultSettings, ...settings };
   const { hero } = cms;
   const whatsappUrl = generateWhatsAppLink(
-    defaultSettings.whatsapp,
+    currentSettings.whatsapp,
     "Hello GG Physiotherapy Clinic, I would like to book a consultation."
   );
 
@@ -81,7 +85,7 @@ export function HeroSection({
             <div className="flex flex-wrap gap-2.5 sm:gap-3 text-xs sm:text-sm font-medium text-slate-200">
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3.5 py-1.5 rounded-lg border border-white/10">
                 <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                <span>15+ Years Orthopedic Excellence</span>
+                <span>10+ Years Orthopedic Excellence</span>
               </div>
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3.5 py-1.5 rounded-lg border border-white/10">
                 <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" />
@@ -116,9 +120,9 @@ export function HeroSection({
               {/* Quick Communication Actions */}
               <div className="flex items-center gap-2 sm:ml-2">
                 <a
-                  href={`tel:${defaultSettings.phone}`}
+                  href={`tel:${currentSettings.phone.replace(/\s+/g, "")}`}
                   className="inline-flex items-center justify-center p-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 text-white hover:bg-white/20 transition-colors"
-                  title="Call Clinic Doctor"
+                  title={`Call Clinic (${currentSettings.phone})`}
                 >
                   <Phone className="w-4 h-4 text-teal-300" />
                 </a>

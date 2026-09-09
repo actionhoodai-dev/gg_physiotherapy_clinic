@@ -13,7 +13,7 @@ import {
   HeartHandshake,
   MapPin,
 } from "lucide-react";
-import { getGalleryItems } from "@/lib/firestore";
+import { getGalleryItems, getClinicSettings } from "@/lib/firestore";
 import { GalleryClient } from "@/components/public/GalleryClient";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 import { defaultSettings } from "@/lib/defaultData";
@@ -67,7 +67,10 @@ const HYGIENE_STANDARDS = [
 ];
 
 export default async function GalleryPage() {
-  const items = await getGalleryItems();
+  const [items, settings] = await Promise.all([
+    getGalleryItems(),
+    getClinicSettings(),
+  ]);
 
   return (
     <div className="bg-[#FBF9F5]">
@@ -100,7 +103,11 @@ export default async function GalleryPage() {
       {/* Interactive Gallery Stream / Upload Notice */}
       <section className="py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <GalleryClient initialItems={items} />
+          <GalleryClient
+            initialItems={items}
+            phone={settings.phone}
+            whatsapp={settings.whatsapp}
+          />
         </div>
       </section>
 
@@ -210,11 +217,11 @@ export default async function GalleryPage() {
               <span>Book In-Clinic Assessment</span>
             </Link>
             <a
-              href={`tel:${defaultSettings.phone}`}
+              href={`tel:${settings.phone.replace(/\s+/g, "")}`}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-bold text-sm hover:bg-slate-200 transition-colors"
             >
               <Phone className="w-4 h-4 text-teal-700" />
-              <span>Call Clinic Doctor</span>
+              <span>Call {settings.phone}</span>
             </a>
           </div>
         </div>

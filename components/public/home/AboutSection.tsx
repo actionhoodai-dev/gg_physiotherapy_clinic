@@ -56,7 +56,7 @@ export function AboutSection({
                     </div>
                     <div>
                       <span className="font-extrabold text-slate-900 text-sm block">
-                        15+ Years Experience
+                        10+ Years Experience
                       </span>
                       <span className="text-[11px] text-teal-700 font-semibold block">
                         M.P.T (Ortho) &amp; MIAP

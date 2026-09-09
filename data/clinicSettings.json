@@ -1,0 +1,37 @@
+{
+  "clinicName": "GG Physiotherapy Clinic",
+  "tagline": "Advanced Orthopedic & Neuro Rehabilitation in Perungudi, Chennai",
+  "logo": "/logo.svg",
+  "phone": "90940 26006",
+  "whatsapp": "+919094026006",
+  "email": "contact@ggphysiotherapy.com",
+  "address": "22, 1st Main Rd, Phase-1, Thirumalai Nagar Annexe, Perungudi",
+  "area": "Perungudi, OMR",
+  "city": "Chennai",
+  "pincode": "600096",
+  "googleMapsUrl": "https://www.google.com/maps/place/GG+Physiotherapy+Clinic(Dr.Sundaravalli+jayakumar+B.P.T%2CM.P.T(ORTHO)%2CDNT%2CMIAP/@12.959961,80.2398817,17z/data=!3m1!4b1!4m6!3m5!1s0x3a525d66f80c2b93:0x17341abd35988268!8m2!3d12.959961!4d80.2398817",
+  "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.1857795440815!2d80.23988167373162!3d12.95996101513605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d66f80c2b93%3A0x17341abd35988268!2sGG%20Physiotherapy%20Clinic(Dr.Sundaravalli%20jayakumar%20B.P.T%2CM.P.T(ORTHO)%2CDNT%2CMIAP!5e0!3m2!1sen!2sin!4v1788861434395!5m2!1sen!2sin",
+  "googleBusinessProfileUrl": "https://www.google.com/maps/place/GG+Physiotherapy+Clinic(Dr.Sundaravalli+jayakumar+B.P.T%2CM.P.T(ORTHO)%2CDNT%2CMIAP/@12.959961,80.2398817,17z/data=!3m1!4b1!4m6!3m5!1s0x3a525d66f80c2b93:0x17341abd35988268!8m2!3d12.959961!4d80.2398817",
+  "googleReviewUrl": "https://g.page/r/CWiCmDW9GjQXEBM/review",
+  "latitude": 12.959961,
+  "longitude": 80.239882,
+  "workingHours": {
+    "monSat": "10:00 am – 1:00 pm, 5:00 pm – 9:00 pm",
+    "sunday": "11:00 am – 1:00 pm",
+    "notes": "Prior appointment recommended for comprehensive assessment."
+  },
+  "emergencyContact": "+91 90940 26006",
+  "socialLinks": {
+    "facebook": "https://facebook.com/ggphysio",
+    "instagram": "https://www.instagram.com/ggphysiotherapyclinic/",
+    "youtube": "https://youtube.com"
+  },
+  "appointmentSettings": {
+    "consultationFee": "₹500",
+    "allowClinic": true,
+    "allowHomeVisit": false,
+    "allowOnline": false,
+    "slotIntervalMinutes": 60
+  },
+  "whatsappTemplate": "Hello GG Physiotherapy Clinic, I would like to book an appointment with Dr. Sundaravalli Jayakumar."
+}

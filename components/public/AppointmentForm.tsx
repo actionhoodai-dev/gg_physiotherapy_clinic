@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { validateIndianPhone, generateWhatsAppLink } from "@/lib/utils";
 import { defaultSettings } from "@/lib/defaultData";
+import { ClinicSettings } from "@/types";
 
 const WEEKDAY_MORNING_SLOTS = [
   "10:00 AM – 11:00 AM",
@@ -40,10 +41,13 @@ const SUNDAY_SLOTS = [
 export function AppointmentForm({
   initialService = "",
   initialCondition = "",
+  settings = defaultSettings,
 }: {
   initialService?: string;
   initialCondition?: string;
+  settings?: ClinicSettings;
 }) {
+  const currentSettings = { ...defaultSettings, ...settings };
   const todayStr = useMemo(() => new Date().toISOString().split("T")[0], []);
 
   const [formData, setFormData] = useState({
@@ -140,7 +144,7 @@ export function AppointmentForm({
         );
       }
     } catch {
-      setErrorMessage("Network error. Please try again or call 090940 26006 directly.");
+      setErrorMessage(`Network error. Please try again or call ${currentSettings.phone} directly.`);
     } finally {
       setLoading(false);
     }

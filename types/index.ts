@@ -178,6 +178,8 @@ export interface TestimonialItem {
   displayOrder: number;
   source: 'google' | 'direct';
   createdAt: string;
+  isLocalGuide?: boolean;
+  reviewDate?: string;
 }
 
 export interface GalleryItem {

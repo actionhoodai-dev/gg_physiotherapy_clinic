@@ -21,7 +21,11 @@ function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   );
 }
 
-export function TopBar() {
+import { ClinicSettings } from "@/types";
+
+export function TopBar({ settings = defaultSettings }: { settings?: ClinicSettings }) {
+  const currentSettings = { ...defaultSettings, ...settings };
+
   return (
     <div className="bg-[#092b31] text-slate-200 text-xs py-2 px-4 border-b border-[#0e3b43]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
@@ -29,11 +33,11 @@ export function TopBar() {
         <div className="flex items-center flex-wrap gap-4 text-slate-300">
           <div className="flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5 text-teal-400" />
-            <span>Thirumalai Nagar Annexe, Perungudi, Chennai 600096</span>
+            <span>{currentSettings.area}, {currentSettings.city} {currentSettings.pincode}</span>
           </div>
           <div className="hidden sm:flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-teal-400" />
-            <span>Mon–Sat: 10am–1pm, 5–9pm | Sun: 11am–1pm</span>
+            <span>Mon–Sat: {currentSettings.workingHours?.monSat || "10am–1pm, 5–9pm"} | Sun: {currentSettings.workingHours?.sunday || "11am–1pm"}</span>
           </div>
         </div>
 
@@ -44,23 +48,25 @@ export function TopBar() {
             <span>4.9★ (312+ Google Reviews)</span>
           </div>
 
-          <a
-            href={defaultSettings.socialLinks.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-slate-300 hover:text-pink-400 font-medium transition-colors"
-            title="Follow GG Physiotherapy Clinic on Instagram"
-          >
-            <InstagramIcon className="w-3.5 h-3.5 text-pink-400" />
-            <span className="hidden lg:inline">Instagram</span>
-          </a>
+          {currentSettings.socialLinks?.instagram && (
+            <a
+              href={currentSettings.socialLinks.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-slate-300 hover:text-pink-400 font-medium transition-colors"
+              title="Follow GG Physiotherapy Clinic on Instagram"
+            >
+              <InstagramIcon className="w-3.5 h-3.5 text-pink-400" />
+              <span className="hidden lg:inline">Instagram</span>
+            </a>
+          )}
 
           <a
-            href={`tel:${defaultSettings.phone}`}
+            href={`tel:${currentSettings.phone.replace(/\s+/g, "")}`}
             className="flex items-center gap-1.5 text-white hover:text-teal-300 font-semibold transition-colors"
           >
             <Phone className="w-3.5 h-3.5 text-teal-400" />
-            <span>{defaultSettings.phone}</span>
+            <span>{currentSettings.phone}</span>
           </a>
         </div>
       </div>

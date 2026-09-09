@@ -3,8 +3,15 @@
 import React, { useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { FAQItem } from "@/types";
+import { defaultSettings } from "@/lib/defaultData";
 
-export function FAQClient({ faqs }: { faqs: FAQItem[] }) {
+export function FAQClient({
+  faqs,
+  phone = defaultSettings.phone,
+}: {
+  faqs: FAQItem[];
+  phone?: string;
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [openId, setOpenId] = useState<string | null>(faqs[0]?.id || null);
@@ -57,7 +64,7 @@ export function FAQClient({ faqs }: { faqs: FAQItem[] }) {
       <div className="space-y-3.5">
         {filteredFaqs.length === 0 ? (
           <div className="p-10 text-center text-slate-500 bg-white rounded-2xl border border-slate-200 shadow-xs">
-            No questions match your query. Please call us at 090940 26006 directly!
+            No questions match your query. Please call us at {phone} directly!
           </div>
         ) : (
           filteredFaqs.map((faq) => {

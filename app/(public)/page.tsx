@@ -34,7 +34,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* 1. Hero Section with Official WhatsApp & Direct Booking Actions */}
-      <HeroSection cms={cms} />
+      <HeroSection cms={cms} settings={settings} />
 
       {/* 2. Trust Stats Bar */}
       <TrustStatsSection stats={cms.trustStats} />
@@ -61,7 +61,7 @@ export default async function HomePage() {
       <LocationSection settings={settings} />
 
       {/* 10. Final Conversion CTA */}
-      <FinalCtaSection cta={cms.finalCta} />
+      <FinalCtaSection cta={cms.finalCta} settings={settings} />
     </div>
   );
 }

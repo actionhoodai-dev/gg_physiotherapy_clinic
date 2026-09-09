@@ -6,14 +6,18 @@ import { Calendar, Phone, MessageSquare, ArrowRight, ShieldCheck, CheckCircle2 }
 import { defaultHomepageCMS, defaultSettings } from "@/lib/defaultData";
 import { generateWhatsAppLink } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
+import { ClinicSettings, HomepageCMS } from "@/types";
 
 export function FinalCtaSection({
   cta = defaultHomepageCMS.finalCta,
+  settings = defaultSettings,
 }: {
-  cta?: typeof defaultHomepageCMS.finalCta;
+  cta?: HomepageCMS["finalCta"];
+  settings?: ClinicSettings;
 }) {
+  const currentSettings = { ...defaultSettings, ...settings };
   const whatsappUrl = generateWhatsAppLink(
-    defaultSettings.whatsapp,
+    currentSettings.whatsapp,
     "Hello GG Physiotherapy Clinic, I would like to book a consultation."
   );
 
@@ -76,11 +80,11 @@ export function FinalCtaSection({
             </Link>
 
             <a
-              href={`tel:${defaultSettings.phone}`}
+              href={`tel:${currentSettings.phone.replace(/\s+/g, "")}`}
               className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm sm:text-base transition-all"
             >
               <Phone className="w-4 h-4 text-teal-300" />
-              <span>Call 090940 26006</span>
+              <span>Call {currentSettings.phone}</span>
             </a>
 
             <a

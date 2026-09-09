@@ -14,7 +14,7 @@ import {
   Stethoscope,
   HeartHandshake,
 } from "lucide-react";
-import { getConditions } from "@/lib/firestore";
+import { getConditions, getClinicSettings } from "@/lib/firestore";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 
 export const revalidate = 60;
@@ -76,7 +76,10 @@ const CONSERVATIVE_VS_SURGICAL = [
 ];
 
 export default async function ConditionsPage() {
-  const conditions = await getConditions(true);
+  const [conditions, settings] = await Promise.all([
+    getConditions(true),
+    getClinicSettings(),
+  ]);
 
   return (
     <div className="bg-[#FBF9F5]">
@@ -279,10 +282,10 @@ export default async function ConditionsPage() {
               <span>Book Physical Evaluation</span>
             </Link>
             <a
-              href="tel:09094026006"
+              href={`tel:${settings.phone.replace(/\s+/g, "")}`}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/20 transition-colors"
             >
-              <span>Call Clinic Doctor</span>
+              <span>Call {settings.phone}</span>
             </a>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Calendar, MessageSquare, HelpCircle, ArrowRight } from "lucide-react";
-import { getFAQs } from "@/lib/firestore";
+import { getFAQs, getClinicSettings } from "@/lib/firestore";
 import { FAQClient } from "@/components/public/FAQClient";
 import { defaultSettings } from "@/lib/defaultData";
 import { generateWhatsAppLink } from "@/lib/utils";
@@ -17,9 +17,12 @@ export const metadata: Metadata = {
 };
 
 export default async function FAQPage() {
-  const faqs = await getFAQs(true);
+  const [faqs, settings] = await Promise.all([
+    getFAQs(true),
+    getClinicSettings(),
+  ]);
   const whatsappUrl = generateWhatsAppLink(
-    defaultSettings.whatsapp,
+    settings.whatsapp,
     "Hello GG Physiotherapy Clinic, I have a question regarding consultation."
   );
 
@@ -54,7 +57,7 @@ export default async function FAQPage() {
       {/* Main FAQ Area */}
       <section className="py-12 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <FAQClient faqs={faqs} />
+          <FAQClient faqs={faqs} phone={settings.phone} />
 
           {/* Still Have Questions Box */}
           <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/80 shadow-sm text-center space-y-5">
@@ -67,11 +70,11 @@ export default async function FAQPage() {
 
             <div className="pt-2 flex flex-wrap items-center justify-center gap-3.5">
               <a
-                href={`tel:${defaultSettings.phone}`}
+                href={`tel:${settings.phone.replace(/\s+/g, "")}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0A363D] text-white font-bold text-xs sm:text-sm hover:bg-[#13545E] transition-colors shadow-sm"
               >
                 <Phone className="w-4 h-4 text-teal-300" />
-                <span>Call {defaultSettings.phone}</span>
+                <span>Call {settings.phone}</span>
               </a>
 
               <a

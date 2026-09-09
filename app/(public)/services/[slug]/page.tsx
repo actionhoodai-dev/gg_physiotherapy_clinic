@@ -15,7 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
-import { getServiceBySlug, getServices } from "@/lib/firestore";
+import { getServiceBySlug, getServices, getClinicSettings } from "@/lib/firestore";
 import { defaultSettings } from "@/lib/defaultData";
 
 export const revalidate = 60;
@@ -51,13 +51,16 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const [service, allServices, settings] = await Promise.all([
+    getServiceBySlug(slug),
+    getServices(true),
+    getClinicSettings(),
+  ]);
 
   if (!service) {
     notFound();
   }
 
-  const allServices = await getServices(true);
   const related = allServices.filter((s) => s.slug !== slug).slice(0, 3);
 
   return (
@@ -253,11 +256,11 @@ export default async function ServiceDetailPage({
                   </Link>
 
                   <a
-                    href={`tel:${defaultSettings.phone}`}
+                    href={`tel:${settings.phone.replace(/\s+/g, "")}`}
                     className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-bold text-xs hover:bg-slate-100 transition-colors"
                   >
                     <Phone className="w-3.5 h-3.5 text-teal-600" />
-                    <span>Call 090940 26006</span>
+                    <span>Call {settings.phone}</span>
                   </a>
                 </div>
               </div>

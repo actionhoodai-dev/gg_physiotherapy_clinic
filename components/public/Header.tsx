@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { defaultSettings } from "@/lib/defaultData";
 import { generateWhatsAppLink } from "@/lib/utils";
+import { ClinicSettings } from "@/types";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
@@ -25,10 +26,17 @@ const NAV_LINKS = [
   { name: "Contact", href: "/contact" },
 ];
 
-export function Header() {
+export function Header({ settings = defaultSettings }: { settings?: ClinicSettings }) {
+  const currentSettings = { ...defaultSettings, ...settings };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const scrollYOnOpen = useRef(0);
+
+  const closeMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +46,38 @@ export function Header() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Auto-close menu on scroll (if user scrolls more than 80px from where they opened it)
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    scrollYOnOpen.current = window.scrollY;
+
+    const handleScrollClose = () => {
+      const delta = Math.abs(window.scrollY - scrollYOnOpen.current);
+      if (delta > 80) {
+        closeMenu();
+      }
+    };
+    window.addEventListener("scroll", handleScrollClose, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollClose);
+  }, [mobileMenuOpen, closeMenu]);
+
+  // Close menu on route change
+  useEffect(() => {
+    closeMenu();
+  }, [pathname, closeMenu]);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -103,23 +143,65 @@ export function Header() {
             </Link>
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
               className="p-2.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-[#0A363D]"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[72px] bottom-0 bg-slate-950/60 z-50 backdrop-blur-xs flex flex-col justify-start">
-          <div className="bg-white border-b border-slate-200 shadow-2xl px-5 pt-4 pb-8 space-y-4 max-h-[85vh] overflow-y-auto">
+      {/* Mobile Floating Menu Overlay */}
+      <div
+        className={`lg:hidden fixed inset-0 z-50 transition-opacity duration-300 ${
+          mobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Backdrop — tap to close */}
+        <div
+          className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
 
-            {/* Links List */}
-            <div className="border-t border-slate-100 pt-3 flex flex-col space-y-1">
+        {/* Floating Menu Panel */}
+        <div
+          ref={menuRef}
+          className={`absolute top-3 left-3 right-3 bg-white rounded-2xl shadow-2xl border border-slate-200/80 overflow-hidden transition-all duration-300 ease-out ${
+            mobileMenuOpen
+              ? "translate-y-0 opacity-100 scale-100"
+              : "-translate-y-6 opacity-0 scale-95"
+          }`}
+          style={{ maxHeight: "85vh" }}
+        >
+          {/* Menu Header with close button */}
+          <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-slate-100">
+            <Link href="/" onClick={closeMenu} className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-[#0A363D] flex items-center justify-center text-white font-bold text-sm">
+                <span className="text-teal-300">G</span>G
+              </div>
+              <span className="font-extrabold text-base tracking-tight text-slate-900">
+                GG Physio
+              </span>
+            </Link>
+            <button
+              type="button"
+              onClick={closeMenu}
+              className="p-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-[#0A363D]"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Scrollable content */}
+          <div className="overflow-y-auto px-5 pt-3 pb-5 space-y-4" style={{ maxHeight: "calc(85vh - 64px)" }}>
+            {/* Nav Links */}
+            <div className="flex flex-col space-y-1">
               {NAV_LINKS.map((link) => {
                 const isActive =
                   link.href === "/"
@@ -129,7 +211,7 @@ export function Header() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={closeMenu}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                       isActive
                         ? "bg-[#0A363D] text-white"
@@ -143,7 +225,7 @@ export function Header() {
               })}
             </div>
 
-            {/* Timings & Direct CTA */}
+            {/* Timings & Actions */}
             <div className="pt-3 border-t border-slate-100 space-y-3">
               <div className="flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-xl">
                 <Clock className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
@@ -155,7 +237,7 @@ export function Header() {
 
               <div className="grid grid-cols-2 gap-2">
                 <a
-                  href={`tel:${defaultSettings.phone}`}
+                  href={`tel:${currentSettings.phone.replace(/\s+/g, "")}`}
                   className="flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold hover:bg-slate-200 transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#0A363D]" />
@@ -163,7 +245,7 @@ export function Header() {
                 </a>
                 <a
                   href={generateWhatsAppLink(
-                    defaultSettings.whatsapp,
+                    currentSettings.whatsapp,
                     "Hello GG Physiotherapy Clinic, I would like to make an enquiry."
                   )}
                   target="_blank"
@@ -177,7 +259,7 @@ export function Header() {
 
               <Link
                 href="/appointment"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMenu}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#E85D45] text-white font-bold text-sm shadow-md active:scale-[0.99] transition-all"
               >
                 <Calendar className="w-4 h-4 text-white" />
@@ -186,7 +268,7 @@ export function Header() {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

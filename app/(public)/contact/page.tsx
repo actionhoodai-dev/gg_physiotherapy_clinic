@@ -13,16 +13,19 @@ import { ContactForm } from "@/components/public/ContactForm";
 import { defaultSettings } from "@/lib/defaultData";
 import { generateWhatsAppLink } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
+import { getClinicSettings } from "@/lib/firestore";
 
 export const metadata: Metadata = {
   title: "Contact & Clinic Location | GG Physiotherapy Clinic Perungudi Chennai",
   description:
-    "Get in touch with GG Physiotherapy Clinic in Perungudi, Chennai. Address, consultation hours, direct phone 090940 26006, Google Map directions, and enquiry form.",
+    "Get in touch with GG Physiotherapy Clinic in Perungudi, Chennai. Address, consultation hours, direct phone 90940 26006, Google Map directions, and enquiry form.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getClinicSettings();
+  const currentSettings = { ...defaultSettings, ...settings };
   const whatsappUrl = generateWhatsAppLink(
-    defaultSettings.whatsapp,
+    currentSettings.whatsapp,
     "Hello GG Physiotherapy Clinic, I would like to make an enquiry."
   );
 
@@ -80,8 +83,8 @@ export default function ContactPage() {
                         Address:
                       </strong>
                       <p className="text-slate-600 mt-1 leading-relaxed">
-                        {defaultSettings.address}, {defaultSettings.area},{" "}
-                        {defaultSettings.city} - {defaultSettings.pincode}
+                        {currentSettings.address}, {currentSettings.area},{" "}
+                        {currentSettings.city} - {currentSettings.pincode}
                       </p>
                       <p className="text-[11px] text-teal-700 mt-1 font-semibold">
                         Landmark: Near Thirumalai Nagar Annexe, Perungudi
@@ -98,10 +101,10 @@ export default function ContactPage() {
                         Direct Phone:
                       </strong>
                       <a
-                        href={`tel:${defaultSettings.phone}`}
+                        href={`tel:${currentSettings.phone.replace(/\s+/g, "")}`}
                         className="text-[#0A363D] font-extrabold hover:underline text-sm mt-0.5 block"
                       >
-                        {defaultSettings.phone}
+                        {currentSettings.phone}
                       </a>
                     </div>
                   </div>
@@ -120,7 +123,7 @@ export default function ContactPage() {
                         rel="noopener noreferrer"
                         className="text-emerald-700 font-bold hover:underline text-xs mt-0.5 block"
                       >
-                        Chat on WhatsApp (+91 90940 26006)
+                        Chat on WhatsApp ({currentSettings.whatsapp})
                       </a>
                     </div>
                   </div>
@@ -134,10 +137,10 @@ export default function ContactPage() {
                         Working Hours:
                       </strong>
                       <p className="text-slate-600 mt-1">
-                        <strong>Mon – Sat:</strong> 10:00 am – 1:00 pm &amp; 5:00 pm – 9:00 pm
+                        <strong>Mon – Sat:</strong> {currentSettings.workingHours?.monSat || "10:00 am – 1:00 pm & 5:00 pm – 9:00 pm"}
                       </p>
                       <p className="text-slate-600">
-                        <strong>Sunday:</strong> 11:00 am – 1:00 pm (Appointments only)
+                        <strong>Sunday:</strong> {currentSettings.workingHours?.sunday || "11:00 am – 1:00 pm (Appointments only)"}
                       </p>
                     </div>
                   </div>
