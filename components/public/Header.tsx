@@ -263,7 +263,7 @@ export function Header({ settings = defaultSettings }: { settings?: ClinicSettin
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#E85D45] text-white font-bold text-sm shadow-md active:scale-[0.99] transition-all"
               >
                 <Calendar className="w-4 h-4 text-white" />
-                <span>Book In-Clinic Appointment</span>
+                <span>Book In-Clinic / Home Visit</span>
               </Link>
             </div>
           </div>

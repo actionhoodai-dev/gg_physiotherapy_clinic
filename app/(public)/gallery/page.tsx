@@ -12,6 +12,7 @@ import {
   Activity,
   HeartHandshake,
   MapPin,
+  Award,
 } from "lucide-react";
 import { getGalleryItems, getClinicSettings } from "@/lib/firestore";
 import { GalleryClient } from "@/components/public/GalleryClient";
@@ -21,9 +22,9 @@ import { defaultSettings } from "@/lib/defaultData";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Clinic Gallery & Facilities | GG Physiotherapy Clinic Chennai",
+  title: "Clinic Gallery, Facilities & Certifications | GG Physiotherapy Clinic Chennai",
   description:
-    "Explore our modern clinical infrastructure, electrotherapy bays, traction equipment, and exercise rehabilitation area in Perungudi, Chennai.",
+    "Explore our modern clinical infrastructure, electrotherapy bays, traction equipment, exercise rehabilitation area, and verified professional certifications in Perungudi, Chennai.",
 };
 
 const INFRASTRUCTURE_FEATURES = [
@@ -79,25 +80,25 @@ export default async function GalleryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-teal-200 text-xs font-bold uppercase tracking-wider border border-white/10">
             <Camera className="w-3.5 h-3.5 text-teal-400" />
-            <span>Clinic Tour &amp; Facility</span>
+            <span>Clinic Tour, Facility & Credentials</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
-            Modern Infrastructure &amp;{" "}
+            Modern Infrastructure,{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-200 to-amber-200 block sm:inline">
-              Clinical Space.
+              Verified Credentials.
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Take a visual walkthrough of our private therapy cubicles, computerized traction tables, electro-modalities, and movement rehabilitation studio in Perungudi, Chennai.
+            Take a visual walkthrough of our private therapy cubicles, computerized traction tables, electro-modalities, and movement rehabilitation studio — plus our verified professional certifications and credentials.
           </p>
         </div>
       </section>
 
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <Breadcrumbs items={[{ label: "Clinic Gallery" }]} />
+        <Breadcrumbs items={[{ label: "Gallery & Certifications" }]} />
       </div>
 
       {/* Interactive Gallery Stream / Upload Notice */}

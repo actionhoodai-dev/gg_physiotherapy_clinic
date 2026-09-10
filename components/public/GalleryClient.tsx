@@ -14,6 +14,7 @@ import {
   MessageSquare,
   Sparkles,
   Building2,
+  Award,
 } from "lucide-react";
 import { GalleryItem } from "@/types";
 import { defaultSettings } from "@/lib/defaultData";
@@ -32,11 +33,12 @@ export function GalleryClient({
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
 
   const categories = [
-    { id: "all", label: "All Photographs" },
+    { id: "all", label: "All" },
     { id: "facility", label: "Clinic Facility" },
     { id: "equipment", label: "Modern Equipment" },
     { id: "rehab", label: "Rehabilitation Studio" },
     { id: "consultation", label: "Consultation Bays" },
+    { id: "certification", label: "Certifications & Credentials" },
   ];
 
   const filteredItems =
@@ -170,6 +172,14 @@ export function GalleryClient({
                     <Maximize2 className="w-5 h-5" />
                   </span>
                 </div>
+
+                {/* Credential badge for certifications */}
+                {item.category === 'certification' && (
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/90 text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">
+                    <Award className="w-3 h-3" />
+                    <span>Verified Credential</span>
+                  </div>
+                )}
               </div>
 
               <div className="p-5">

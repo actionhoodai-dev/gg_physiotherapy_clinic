@@ -13,15 +13,16 @@ import {
   Award,
   Sparkles,
   MapPin,
+  Home,
 } from "lucide-react";
 import { defaultSettings } from "@/lib/defaultData";
 import { getClinicSettings } from "@/lib/firestore";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Book an Appointment | GG Physiotherapy Clinic Perungudi Chennai",
+  title: "Book an Appointment | In-Clinic & Home Visits | GG Physiotherapy Clinic Chennai",
   description:
-    "Schedule your dedicated in-clinic physiotherapy consultation with Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP) in Perungudi, Chennai. Modern 1-on-1 offline clinical care and rehabilitation.",
+    "Schedule your dedicated in-clinic or home visit physiotherapy appointment with Dr. Sundaravalli Jayakumar (B.P.T, M.P.T ORTHO, DNT, MIAP, FOMT (AUS), MSC Osteopathy) in Perungudi and South Chennai.",
 };
 
 export default async function AppointmentPage({
@@ -41,25 +42,25 @@ export default async function AppointmentPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-teal-200 text-xs font-bold uppercase tracking-wider border border-white/10">
             <Calendar className="w-3.5 h-3.5 text-teal-400" />
-            <span>Dedicated In-Clinic Consultation</span>
+            <span>In-Clinic &amp; Home Visit Appointments</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
             Book Your Physiotherapy Consultation{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-200 to-amber-200 block sm:inline">
-              in Perungudi, Chennai.
+              in Chennai.
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Select your preferred consultation date and 1-hour time slot. Our clinical desk in Perungudi will review and confirm your in-clinic appointment promptly.
+            Choose between dedicated in-clinic sessions at our Perungudi center or professional home visits across South Chennai. Select your preferred date and slot below.
           </p>
         </div>
       </section>
 
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <Breadcrumbs items={[{ label: "Book In-Clinic Appointment" }]} />
+        <Breadcrumbs items={[{ label: "Book Appointment (In-Clinic / Home Visit)" }]} />
       </div>
 
       {/* Main Booking Area */}
@@ -104,14 +105,24 @@ export default async function AppointmentPage({
               <div className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="font-bold text-xs text-slate-900 uppercase tracking-wider">
-                    In-Clinic Treatment Facility
+                    Treatment &amp; Care Options
                   </h3>
-                  <span className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
-                    Offline Clinic Only
+                  <span className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
+                    In-Clinic &amp; Home Visits
                   </span>
                 </div>
 
                 <div className="space-y-3 text-xs">
+                  <div className="p-3.5 rounded-2xl border border-teal-200 bg-teal-50/50 space-y-1">
+                    <div className="flex items-center gap-2 font-bold text-teal-950 text-sm">
+                      <Home className="w-4 h-4 text-teal-700" />
+                      <span>Home Visit Physiotherapy</span>
+                    </div>
+                    <p className="text-teal-900/80 leading-relaxed">
+                      Personalized doorstep care across Perungudi, Velachery, Thoraipakkam, Madipakkam, and OMR for elderly, post-op, or mobility-restricted patients.
+                    </p>
+                  </div>
+
                   <div className="p-3.5 rounded-2xl border border-slate-100 bg-[#FBF9F5] space-y-1">
                     <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
                       <Building2 className="w-4 h-4 text-[#0A363D]" />

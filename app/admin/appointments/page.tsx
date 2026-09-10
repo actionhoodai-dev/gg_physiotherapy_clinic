@@ -152,9 +152,16 @@ export default function AdminAppointmentsPage() {
   };
 
   const getModeBadge = (mode: AppointmentItem["consultationMode"]) => {
+    if (mode === "home") {
+      return (
+        <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 border border-teal-300">
+          🏠 Home Visit
+        </span>
+      );
+    }
     return (
       <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-        In-Clinic Visit
+        🏥 In-Clinic Visit
       </span>
     );
   };

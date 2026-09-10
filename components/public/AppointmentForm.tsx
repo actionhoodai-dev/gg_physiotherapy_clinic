@@ -8,6 +8,7 @@ import {
   Phone,
   Mail,
   Building2,
+  Home,
   CheckCircle2,
   AlertCircle,
   Loader2,
@@ -58,7 +59,8 @@ export function AppointmentForm({
       initialService || initialCondition || "Orthopedic Rehabilitation",
     preferredDate: todayStr,
     preferredTime: "10:00 AM – 11:00 AM",
-    consultationMode: "clinic" as const,
+    consultationMode: "clinic" as "clinic" | "home",
+    homeAddress: "",
     message: "",
   });
 
@@ -129,7 +131,11 @@ export function AppointmentForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          consultationMode: "clinic", // Strictly offline / in-clinic
+          consultationMode: formData.consultationMode,
+          message:
+            formData.consultationMode === "home"
+              ? `[Home Visit Address: ${formData.homeAddress || "To be confirmed"}] ${formData.message}`.trim()
+              : formData.message,
         }),
       });
 
@@ -151,15 +157,19 @@ export function AppointmentForm({
   };
 
   const getWhatsAppSummaryLink = () => {
-    const text = `Hello GG Physiotherapy Clinic, I have submitted an in-clinic appointment request:
+    const modeText =
+      formData.consultationMode === "home"
+        ? `Home Visit (${formData.homeAddress ? formData.homeAddress : "Perungudi & South Chennai"})`
+        : "In-Clinic (Perungudi, Chennai)";
+    const text = `Hello GG Physiotherapy Clinic, I have submitted an appointment request:
 - Booking Ref: ${confirmedId}
 - Patient: ${formData.fullName}
 - Phone: ${formData.phone}
+- Mode: ${modeText}
 - Treatment: ${formData.preferredService}
 - Date: ${formData.preferredDate}
 - 1-Hour Slot: ${formData.preferredTime}
-- Location: In-Clinic (Perungudi, Chennai)
-Please confirm my consultation slot.`;
+Please confirm my appointment slot.`;
     return generateWhatsAppLink(defaultSettings.whatsapp, text);
   };
 
@@ -172,8 +182,17 @@ Please confirm my consultation slot.`;
 
         <div className="space-y-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-            <Building2 className="w-3.5 h-3.5 text-emerald-600" />
-            In-Clinic Consultation Scheduled
+            {formData.consultationMode === "home" ? (
+              <>
+                <Home className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Home Visit Appointment Scheduled</span>
+              </>
+            ) : (
+              <>
+                <Building2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>In-Clinic Consultation Scheduled</span>
+              </>
+            )}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Appointment Request Confirmed!
@@ -243,6 +262,7 @@ Please confirm my consultation slot.`;
                 preferredDate: todayStr,
                 preferredTime: "10:00 AM – 11:00 AM",
                 consultationMode: "clinic",
+                homeAddress: "",
                 message: "",
               });
             }}
@@ -271,16 +291,94 @@ Please confirm my consultation slot.`;
         </div>
       )}
 
-      {/* In-Clinic Notice Badge */}
-      <div className="p-3.5 rounded-2xl bg-[#0A363D]/5 border border-[#0A363D]/15 flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#0A363D]">
-          <Building2 className="w-4 h-4 text-teal-700 flex-shrink-0" />
-          <span>In-Clinic Therapy at Perungudi, Chennai</span>
+      {/* Consultation Mode Selector */}
+      <div className="space-y-2">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
+          Select Consultation Mode <span className="text-rose-500">*</span>
+        </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, consultationMode: "clinic" })}
+            className={`p-3.5 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
+              formData.consultationMode === "clinic"
+                ? "bg-[#0A363D]/5 border-[#0A363D] shadow-xs ring-1 ring-[#0A363D]"
+                : "bg-white border-slate-200 hover:border-slate-300"
+            }`}
+          >
+            <div
+              className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                formData.consultationMode === "clinic"
+                  ? "bg-[#0A363D] text-white"
+                  : "bg-slate-100 text-slate-600"
+              }`}
+            >
+              <Building2 className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs sm:text-sm font-bold text-slate-900 block">
+                In-Clinic Visit
+              </span>
+              <span className="text-[11px] text-slate-500 block leading-tight mt-0.5">
+                At our Perungudi clinic with advanced therapy equipment
+              </span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, consultationMode: "home" })}
+            className={`p-3.5 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
+              formData.consultationMode === "home"
+                ? "bg-teal-50 border-teal-600 shadow-xs ring-1 ring-teal-600"
+                : "bg-white border-slate-200 hover:border-slate-300"
+            }`}
+          >
+            <div
+              className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+                formData.consultationMode === "home"
+                  ? "bg-teal-700 text-white"
+                  : "bg-slate-100 text-slate-600"
+              }`}
+            >
+              <Home className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs sm:text-sm font-bold text-slate-900 block">
+                Home Visit Care
+              </span>
+              <span className="text-[11px] text-teal-800 font-medium block leading-tight mt-0.5">
+                Qualified therapist visits your doorstep in South Chennai
+              </span>
+            </div>
+          </button>
         </div>
-        <span className="text-[11px] text-teal-800 font-semibold bg-white px-2.5 py-1 rounded-full border border-teal-200 shadow-2xs">
-          Offline Treatment Only
-        </span>
       </div>
+
+      {/* Conditional Home Address Field */}
+      {formData.consultationMode === "home" && (
+        <div className="space-y-1.5 p-4 rounded-2xl bg-teal-50/70 border border-teal-200">
+          <label className="text-xs font-bold text-teal-950 uppercase tracking-wider block">
+            Home Address &amp; Area in Chennai <span className="text-rose-500">*</span>
+          </label>
+          <div className="relative">
+            <MapPin className="w-4 h-4 text-teal-600 absolute left-3.5 top-3" />
+            <textarea
+              rows={2}
+              required
+              placeholder="e.g. Flat 3B, Sunshine Apts, Thirumalai Nagar, Perungudi (or Velachery / Thoraipakkam)"
+              value={formData.homeAddress}
+              onChange={(e) =>
+                setFormData({ ...formData, homeAddress: e.target.value })
+              }
+              className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-teal-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 bg-white"
+            />
+          </div>
+          <p className="text-[11px] text-teal-800">
+            Available across Perungudi, Velachery, Thoraipakkam, Madipakkam, and the OMR corridor.
+          </p>
+        </div>
+      )}
 
       {/* Patient Name & Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -337,6 +435,7 @@ Please confirm my consultation slot.`;
             className="w-full h-11 px-3.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0A363D] bg-white transition-all"
           >
             <option value="Orthopedic Rehabilitation">Orthopedic Rehabilitation</option>
+            <option value="Home Visit Physiotherapy">Home Visit Physiotherapy (Elderly / Post-Op)</option>
             <option value="Spine & Back Pain Care">Spine &amp; Back Pain Care</option>
             <option value="Low Back Pain & Sciatica">Low Back Pain &amp; Sciatica</option>
             <option value="Knee Osteoarthritis">Knee Osteoarthritis Therapy</option>
@@ -521,12 +620,16 @@ Please confirm my consultation slot.`;
           {loading ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Scheduling In-Clinic Slot...</span>
+              <span>Scheduling Appointment Slot...</span>
             </>
           ) : (
             <>
               <Calendar className="w-5 h-5 text-white/90" />
-              <span>Confirm In-Clinic Appointment Slot</span>
+              <span>
+                {formData.consultationMode === "home"
+                  ? "Confirm Home Visit Appointment"
+                  : "Confirm In-Clinic Appointment"}
+              </span>
             </>
           )}
         </button>

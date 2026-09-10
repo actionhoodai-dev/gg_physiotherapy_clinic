@@ -181,8 +181,8 @@ export function buildAppointmentEmailTemplate(appointment: {
       </div>
       
       <div style="padding: 24px; color: #334155;">
-        <div style="display: inline-block; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 9999px; margin-bottom: 16px;">
-          IN-CLINIC CONSULTATION (PERUNGUDI)
+        <div style="display: inline-block; background: ${appointment.consultationMode === 'home' ? '#f0fdfa' : '#ecfdf5'}; border: 1px solid ${appointment.consultationMode === 'home' ? '#99f6e4' : '#a7f3d0'}; color: ${appointment.consultationMode === 'home' ? '#0f766e' : '#065f46'}; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 9999px; margin-bottom: 16px;">
+          ${appointment.consultationMode === 'home' ? '🏠 HOME VISIT CONSULTATION' : '🏥 IN-CLINIC CONSULTATION (PERUNGUDI)'}
         </div>
 
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px;">
@@ -239,6 +239,7 @@ export function buildPatientAppointmentConfirmationTemplate(appointment: {
   preferredService: string;
   preferredDate: string;
   preferredTime: string;
+  consultationMode?: 'clinic' | 'home' | 'online';
   appointmentId?: string;
 }): string {
   return `
@@ -287,7 +288,9 @@ export function buildPatientAppointmentConfirmationTemplate(appointment: {
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b;">Consultation Mode:</td>
-              <td style="padding: 8px 0; font-weight: 600; color: #0f766e;">In-Clinic (Perungudi Clinic)</td>
+              <td style="padding: 8px 0; font-weight: 600; color: #0f766e;">
+                ${appointment.consultationMode === 'home' ? '🏠 Home Visit Care (Doorstep South Chennai)' : '🏥 In-Clinic (Perungudi Clinic)'}
+              </td>
             </tr>
           </table>
         </div>

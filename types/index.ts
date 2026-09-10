@@ -185,7 +185,7 @@ export interface TestimonialItem {
 export interface GalleryItem {
   id: string;
   title: string;
-  category: 'facility' | 'equipment' | 'rehab' | 'consultation' | 'all';
+  category: 'facility' | 'equipment' | 'rehab' | 'consultation' | 'certification' | 'all';
   imageUrl: string;
   caption?: string;
   altText: string;

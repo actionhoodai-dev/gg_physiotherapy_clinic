@@ -10,6 +10,7 @@ import {
   RefreshCw,
   Eye,
   Filter,
+  Award,
 } from "lucide-react";
 import { getGalleryItems, saveGalleryItem, deleteGalleryItem } from "@/lib/firestore";
 import { GalleryItem } from "@/types";
@@ -22,7 +23,17 @@ const CATEGORIES: Array<GalleryItem["category"]> = [
   "equipment",
   "rehab",
   "consultation",
+  "certification",
 ];
+
+const CATEGORY_LABELS: Record<string, string> = {
+  all: "All",
+  facility: "Clinic Facility",
+  equipment: "Equipment",
+  rehab: "Rehabilitation",
+  consultation: "Consultation",
+  certification: "Certifications",
+};
 
 const EMPTY_FORM: Partial<GalleryItem> = {
   title: "",
@@ -139,10 +150,10 @@ export default function AdminGalleryPage() {
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <ImageIcon className="w-6 h-6 text-teal-600" />
-            Clinic Facility & Photo Gallery
+            Gallery & Certifications
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Showcase treatment rooms, electrotherapy equipment, and doctor consultation spaces.
+            Showcase clinic facilities, equipment, and professional certifications & credentials.
           </p>
         </div>
 
@@ -175,13 +186,13 @@ export default function AdminGalleryPage() {
           <button
             key={cat}
             onClick={() => setCategoryFilter(cat)}
-            className={`px-3 py-1 rounded-lg text-xs font-semibold capitalize transition ${
+            className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
               categoryFilter === cat
                 ? "bg-[#0c4a60] text-white"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             }`}
           >
-            {cat}
+            {CATEGORY_LABELS[cat] || cat}
           </button>
         ))}
       </div>
@@ -212,8 +223,10 @@ export default function AdminGalleryPage() {
                   fill
                   className="object-cover"
                 />
-                <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[11px] font-semibold uppercase bg-slate-900/80 text-white backdrop-blur-xs">
-                  {item.category}
+                <span className={`absolute top-2 left-2 px-2 py-0.5 rounded text-[11px] font-semibold uppercase backdrop-blur-xs ${
+                  item.category === 'certification' ? 'bg-amber-600/90 text-white' : 'bg-slate-900/80 text-white'
+                }`}>
+                  {CATEGORY_LABELS[item.category] || item.category}
                 </span>
                 <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-white/90 text-slate-700">
                   Order: {item.displayOrder}
@@ -269,7 +282,7 @@ export default function AdminGalleryPage() {
                 type="text"
                 value={form.title || ""}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
-                placeholder="e.g. Advanced Ultrasound Therapy Room"
+                placeholder={form.category === 'certification' ? 'e.g. FOMT (AUS) Fellowship Certificate' : 'e.g. Advanced Ultrasound Therapy Room'}
                 className="w-full text-sm border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-teal-500"
                 required
               />
@@ -288,8 +301,8 @@ export default function AdminGalleryPage() {
                   className="w-full text-sm border border-slate-300 rounded-lg p-2.5 capitalize"
                 >
                   {CATEGORIES.map((c) => (
-                    <option key={c} value={c} className="capitalize">
-                      {c}
+                    <option key={c} value={c}>
+                      {CATEGORY_LABELS[c] || c}
                     </option>
                   ))}
                 </select>
@@ -310,7 +323,7 @@ export default function AdminGalleryPage() {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Clinic Photo (Cloudinary Upload / URL) *
+                {form.category === 'certification' ? 'Certificate / Credential Image *' : 'Clinic Photo (Cloudinary Upload / URL) *'}
               </label>
               <CloudinaryUploader
                 value={form.imageUrl || ""}
@@ -326,7 +339,7 @@ export default function AdminGalleryPage() {
               <textarea
                 value={form.caption || ""}
                 onChange={(e) => setForm({ ...form, caption: e.target.value })}
-                placeholder="Short description of the equipment or room setup..."
+                placeholder={form.category === 'certification' ? 'e.g. Fellowship in Orthopedic Manual Therapy awarded by...' : 'Short description of the equipment or room setup...'}
                 rows={2}
                 className="w-full text-xs border border-slate-300 rounded-lg p-2.5"
               />

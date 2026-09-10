@@ -93,7 +93,7 @@ export function HeroSection({
               </div>
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3.5 py-1.5 rounded-lg border border-white/10">
                 <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                <span>1-on-1 In-Clinic Therapy Only</span>
+                <span>In-Clinic &amp; Home Visits Available</span>
               </div>
             </div>
 
